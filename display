@@ -1,0 +1,198 @@
+#!/bin/zsh -eu
+
+command=$(basename "$0")
+this_script="$(realpath $0)"
+PROJECT=$(dirname "$(realpath $0)")
+cd $PROJECT
+
+declare -A display=(
+  [name]="AW3225QF"
+  [bounds_5k]="{0, 0, 2560, 1440}"
+  [bounds_4k]="{0, 0, 1920, 1080}"
+)
+
+declare -A normal_set_0=(
+    [hdr]=off
+)
+
+declare -A normal_set_1=(
+    [brightness]=0.75
+    [resolution]=2560x1440
+    [refreshRate]=48-240Hz
+    [colorProfileURL]="file:///Library/ColorSync/Profiles/Displays/AW3225QF-D61FFD6E-1D7D-42D9-A314-59D2ED731496.icc"
+)
+
+declare -A dolby_vision_set_0=(
+    [brightness]=1
+    [resolution]=1920x1080
+    [refreshRate]=60Hz
+    [colorProfileURL]="file:///System/Library/ColorSync/Profiles/DCI(P3)%20RGB.icc"
+)
+declare -A dolby_vision_set_1=(
+    [hdr]=on
+)
+declare -A dolby_vision_set_2=(
+    [connectionMode]=bpc:12+range:limited
+)
+
+local netflixURL="https://www.netflix.com"
+
+usage() {
+    print -rC1 -- \
+          "" \
+          "Usage:" \
+          "    $this_script:t <-h|--help>             Show this help." \
+          "    $this_script:t --install[=<location>]  Install commands to specifid location." \
+          "                                           default: ~/.local/bin"
+    exit 0
+}
+
+log() {
+    local timestamp=$(date "+%Y-%m-%d %H:%M:%S.%3N")
+    print -P "%F{green}[$timestamp]%f $*"
+}
+
+error() {
+    local timestamp=$(date "+%Y-%m-%d %H:%M:%S.%3N")
+    print -P "%F{red}[$timestamp] Error:%f $*"
+}
+
+betterdisplay() {
+    local prefix=$1
+    local i=0
+    while true; do
+        local var=${prefix}_set_$i
+        if [[ ! -v "$var" ]]; then
+            break
+        fi
+        local -A params=(${(Pkv@)var})
+        local args=(-name="$display[name]")
+        local wait=false
+        for key in ${(k)params}; do
+            args+=(-$key=$params[$key])
+            if [[ $key == hdr ]]; then
+                wait=true
+            fi
+        done
+        if betterdisplaycli set $args[*]; then
+            log "betterdisplaycli set ${args[*]} succeeded"
+            if $wait; then
+                sleep 1
+            else
+                sleep 0.1
+            fi
+        else
+            error "betterdisplaycli set ${args[*]} failed"
+        fi
+        i=$((i + 1))
+    done
+
+}
+
+
+netflix() {
+    betterdisplay dolby_vision
+
+    osascript <<-EOF
+tell application "Safari"
+  activate
+  set netflix to null
+  set startPage to null
+  repeat with thisWindow in windows
+    repeat with thisTab in tabs of thisWindow
+      set thisURL to URL of thisTab
+      -- already open netflix ?
+      if thisURL contains "$netflixURL" then
+        set netflix to {w:thisWindow, t:thisTab}
+        exit repeat
+      end if
+      -- start page ?
+      if thisURL is "favorites://" then
+        set startPage to {w:thisWindow, t:thisTab}
+      end if
+    end repeat
+    if netflix is not null then exit repeat
+  end repeat
+  if netflix is null then
+    if startPage is null then
+      make new document with properties {URL:"$netflixURL"}
+      set netflix to {w:front window, t:current tab of front window}
+    else
+      set URL of t of startPage to theURL
+      set netflix to startPage
+    end if
+  end if
+  set index of w of netflix to 1
+  tell front window
+    set current tab to (t of netflix)
+    set bounds to $display[bounds_4k]
+  end tell
+end tell
+EOF
+}
+
+apple_tv() {
+    betterdisplay dolby_vision
+
+    osascript <<-EOF
+tell application "TV"
+  activate
+  set tvWin to null
+  repeat with aWin in windows
+    if name of aWin is "TV" then
+      set tvWin to aWin
+    end if
+  end repeat
+ if tvWin is not null then
+   tell tvWin
+     set bounds to $display[bounds_4k]
+     set visible to true
+   end tell
+ end if
+end tell
+EOF
+}
+
+reset_display() {
+    betterdisplay normal
+}
+
+install() {
+    local install_location=$1
+
+    ln -sf $this_script $install_location/apple-tv
+    ln -sf $this_script $install_location/netflix
+    ln -sf $this_script $install_location/reset-display
+}
+
+zparseopts -D -E -F -- \
+           {h,-help}=help \
+           -install::=install
+
+if [[ $command == $(basename $this_script) ]]; then
+    if (( $#help )); then
+        usage
+    fi
+    if [[ -n $install ]]; then
+        local loc=${install##--install}
+        loc=${loc##=}
+        if [[ -z $loc ]]; then
+            loc=~/.local/bin
+        fi
+        install $loc
+    fi
+    return
+fi
+
+
+case $command in
+    apple-tv )
+        apple_tv
+        ;;
+    netflix )
+        netflix
+        ;;
+    reset-display )
+        reset_display
+        ;;
+esac
