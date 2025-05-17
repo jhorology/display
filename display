@@ -118,7 +118,7 @@ tell application "Safari"
       make new document with properties {URL:"$netflixURL"}
       set netflix to {w:front window, t:current tab of front window}
     else
-      set URL of t of startPage to theURL
+      set URL of t of startPage to "$netflixURL"
       set netflix to startPage
     end if
   end if
