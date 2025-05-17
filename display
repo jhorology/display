@@ -111,9 +111,6 @@ betterdisplay() {
                 fi
             fi
             args+=(-$key=$params[$key])
-            if [[ $key == hdr ]]; then
-                wait=true
-            fi
         done
         if (( $#args )); then
             if betterdisplaycli set -name="$display[name]" $args[*]; then
