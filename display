@@ -1,8 +1,8 @@
 #!/bin/zsh -eu
 
-command=$(basename "$0")
+command=$0:t
 this_script="$(realpath $0)"
-PROJECT=$(dirname "$(realpath $0)")
+PROJECT=$this_script:h
 cd $PROJECT
 
 declare -A display=(
@@ -11,10 +11,12 @@ declare -A display=(
   [bounds_4k]="{0, 0, 1920, 1080}"
 )
 
+#---------------------------------------------------
+# normal settings
+#---------------------------------------------------
 declare -A normal_set_0=(
     [hdr]=off
 )
-
 declare -A normal_set_1=(
     [brightness]=0.75
     [resolution]=2560x1440
@@ -22,16 +24,35 @@ declare -A normal_set_1=(
     [colorProfileURL]="file:///Library/ColorSync/Profiles/Displays/AW3225QF-D61FFD6E-1D7D-42D9-A314-59D2ED731496.icc"
 )
 
-declare -A dolby_vision_set_0=(
+#---------------------------------------------------
+# dolby vision 4K settings
+#---------------------------------------------------
+declare -A dolby_vision_4k_set_0=(
     [brightness]=1
     [resolution]=1920x1080
     [refreshRate]=60Hz
     [colorProfileURL]="file:///System/Library/ColorSync/Profiles/DCI(P3)%20RGB.icc"
 )
-declare -A dolby_vision_set_1=(
+declare -A dolby_vision_4k_set_1=(
     [hdr]=on
 )
-declare -A dolby_vision_set_2=(
+declare -A dolby_vision_4k_set_2=(
+    [connectionMode]=bpc:12+range:limited
+)
+
+#---------------------------------------------------
+# dolby vision 4K settings
+#---------------------------------------------------
+declare -A dolby_vision_5k_set_0=(
+    [brightness]=1
+    [resolution]=2560x1330
+    [refreshRate]=60Hz
+    [colorProfileURL]="file:///System/Library/ColorSync/Profiles/DCI(P3)%20RGB.icc"
+)
+declare -A dolby_vision_5k_set_1=(
+    [hdr]=on
+)
+declare -A dolby_vision_5k_set_2=(
     [connectionMode]=bpc:12+range:limited
 )
 
@@ -42,8 +63,9 @@ usage() {
           "" \
           "Usage:" \
           "    $this_script:t <-h|--help>             Show this help." \
-          "    $this_script:t --install[=<location>]  Install commands to specifid location." \
-          "                                           default: ~/.local/bin"
+          "    $this_script:t --setup                 Install dependencies (BetterDisplay.app, betterdisplaycli)." \
+          "    $this_script:t --install[=<location>]  Install utility commands to specifid location. default: ~/.local/bin" \
+          ""
     exit 0
 }
 
@@ -57,41 +79,56 @@ error() {
     print -P "%F{red}[$timestamp] Error:%f $*"
 }
 
+setup() {
+    brew update
+    brew install --cask betterdisplay
+    brew install waydabber/betterdisplay/betterdisplaycli
+    brew cleanup
+}
+
 betterdisplay() {
     local prefix=$1
     local i=0
+    # bug? betterdisplaycli can't get hdr=off
+    local cur_hdr=$(betterdisplaycli get -name="$display[name]" -hdr 2> /dev/null)
+    [[ -z $cur_hdr ]] && cur_hdr=off
+    log "current hdr state: $cur_hdr"
+
     while true; do
         local var=${prefix}_set_$i
         if [[ ! -v "$var" ]]; then
             break
         fi
         local -A params=(${(Pkv@)var})
-        local args=(-name="$display[name]")
-        local wait=false
+        local args=()
+        local hdr_changed=false
         for key in ${(k)params}; do
+            if [[ $key == hdr ]]; then
+                if [[ $cur_hdr ==  $params[$key] ]]; then
+                    continue
+                else
+                    hdr_changed=true
+                fi
+            fi
             args+=(-$key=$params[$key])
             if [[ $key == hdr ]]; then
                 wait=true
             fi
         done
-        if betterdisplaycli set $args[*]; then
-            log "betterdisplaycli set ${args[*]} succeeded"
-            if $wait; then
-                sleep 1
+        if (( $#args )); then
+            if betterdisplaycli set -name="$display[name]" $args[*]; then
+                log "succeeded: betterdisplaycli set ${args[*]}"
+                $hdr_changed && sleep 1.5 || sleep 0.2
             else
-                sleep 0.1
+                error "failed: betterdisplaycli set ${args[*]}"
             fi
-        else
-            error "betterdisplaycli set ${args[*]} failed"
         fi
         i=$((i + 1))
     done
-
 }
 
-
 netflix() {
-    betterdisplay dolby_vision
+    betterdisplay dolby_vision_4k
 
     osascript <<-EOF
 tell application "Safari"
@@ -132,7 +169,7 @@ EOF
 }
 
 apple_tv() {
-    betterdisplay dolby_vision
+    betterdisplay dolby_vision_4k
 
     osascript <<-EOF
 tell application "TV"
@@ -161,19 +198,28 @@ install() {
     local install_location=$1
 
     ln -sf $this_script $install_location/apple-tv
+    log "Installed $install_location/apple-tv"
     ln -sf $this_script $install_location/netflix
+    log "Installed $install_location/netflix"
+    ln -sf $this_script $install_location/dolby-vision-4k
+    log "Installed $install_location/dolby-vision-4k"
+    ln -sf $this_script $install_location/dolby-vision-5k
+    log "Installed $install_location/dolby-vision-5k"
     ln -sf $this_script $install_location/reset-display
+    log "Installed $install_location/reset-display"
 }
 
-zparseopts -D -E -F -- \
-           {h,-help}=help \
-           -install::=install
 
 if [[ $command == $(basename $this_script) ]]; then
+    zparseopts -D -E -F -- \
+               {h,-help}=help \
+               -setup=setup \
+               -install::=install
     if (( $#help )); then
         usage
-    fi
-    if [[ -n $install ]]; then
+    elif (( $#setup )); then
+        setup
+    elif (( $#install )); then
         local loc=${install##--install}
         loc=${loc##=}
         if [[ -z $loc ]]; then
@@ -184,13 +230,18 @@ if [[ $command == $(basename $this_script) ]]; then
     return
 fi
 
-
 case $command in
     apple-tv )
         apple_tv
         ;;
     netflix )
         netflix
+        ;;
+    dolby-vision-4k )
+        betterdisplay dolby_vision_4k
+        ;;
+    dolby-vision-5k )
+        betterdisplay dolby_vision_5k
         ;;
     reset-display )
         reset_display
