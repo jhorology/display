@@ -25,7 +25,7 @@
     <redTRCTag>
       <parametricCurveType>
         <ParametricCurve FunctionType="0">
-          2.4
+          2.6
         </ParametricCurve>
       </parametricCurveType>
     </redTRCTag>
@@ -68,9 +68,11 @@
       </XYZArrayType>
     </mediaWhitePointTag>
 
-    <luminanceTag> <XYZArrayType>
-      <XYZNumber X="1000.000000000000" Y="500.000000000000" Z="1000.000000000000"/>
-    </XYZArrayType> </luminanceTag>
+    <luminanceTag>
+      <XYZArrayType>
+        <XYZNumber X="500.000000000000" Y="500.000000000000" Z="5000.000000000000"/>
+      </XYZArrayType>
+    </luminanceTag>
 
     <profileDescriptionTag>
       <multiLocalizedUnicodeType>
