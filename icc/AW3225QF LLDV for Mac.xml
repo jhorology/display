@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IccProfile>
+  <Header>
+    <PreferredCMMType>SICC</PreferredCMMType>
+    <ProfileVersion>4.40</ProfileVersion>
+    <ProfileDeviceClass>mntr</ProfileDeviceClass>
+    <DataColourSpace>RGB </DataColourSpace>
+    <PCS>XYZ </PCS>
+    <CreationDateTime>2025-05-20T20:37:34</CreationDateTime>
+    <ProfileFlags EmbeddedInFile="false" UseWithEmbeddedDataOnly="false"/>
+    <DeviceAttributes ReflectiveOrTransparency="transparency" GlossyOrMatte="glossy" MediaPolarity="positive" MediaColour="colour"/>
+    <RenderingIntent>Relative Colorimetric</RenderingIntent>
+    <PCSIlluminant>
+      <XYZNumber X="0.964202880859" Y="1.000000000000" Z="0.824905395508"/>
+    </PCSIlluminant>
+    <ProfileCreator>jhorology</ProfileCreator>
+  </Header>
+  <Tags>
+    <copyrightTag>
+      <multiLocalizedUnicodeType>
+        <LocalizedText LanguageCountry="enUS"><![CDATA[Copyright(c) 2025 jhorology. SPDX-License-Identifier: MIT]]></LocalizedText>
+      </multiLocalizedUnicodeType>
+    </copyrightTag>
+
+    <redTRCTag>
+      <parametricCurveType>
+        <ParametricCurve FunctionType="0">
+          2.4
+        </ParametricCurve>
+      </parametricCurveType>
+    </redTRCTag>
+
+    <greenTRCTag SameAs="redTRCTag"/>
+
+    <blueTRCTag SameAs="redTRCTag"/>
+
+    <chromaticAdaptationTag>
+      <s15Fixed16ArrayType>
+      <Array>
+        1.047729492188 0.022964477539 -0.049316406250
+        0.029769897461 0.989929199219 -0.016815185547
+        -0.009033203125 0.014678955078 0.756927490234
+      </Array>
+      </s15Fixed16ArrayType>
+    </chromaticAdaptationTag>
+
+    <redColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.564620971680" Y="0.250595092773" Z="0.003952026367"/>
+      </XYZArrayType>
+    </redColorantTag>
+
+    <greenColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.262252807617" Y="0.701309204102" Z="0.043075561523"/>
+      </XYZArrayType>
+    </greenColorantTag>
+
+    <blueColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.145477294922" Y="0.061447143555" Z="0.771469116211"/>
+      </XYZArrayType>
+    </blueColorantTag>
+
+    <mediaWhitePointTag>
+      <XYZArrayType>
+        <XYZNumber X="0.964202880859" Y="1.000000000000" Z="0.824905395508"/>
+      </XYZArrayType>
+    </mediaWhitePointTag>
+
+    <luminanceTag> <XYZArrayType>
+      <XYZNumber X="1000.000000000000" Y="500.000000000000" Z="1000.000000000000"/>
+    </XYZArrayType> </luminanceTag>
+
+    <profileDescriptionTag>
+      <multiLocalizedUnicodeType>
+        <LocalizedText LanguageCountry="enUS"><![CDATA[AW3225QF LLDV for Mac]]></LocalizedText>
+      </multiLocalizedUnicodeType>
+    </profileDescriptionTag>
+
+  </Tags>
+</IccProfile>
