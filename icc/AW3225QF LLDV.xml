@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IccProfile>
+  <Header>
+    <PreferredCMMType>appl</PreferredCMMType>
+    <ProfileVersion>2.10</ProfileVersion>
+    <ProfileDeviceClass>mntr</ProfileDeviceClass>
+    <DataColourSpace>RGB </DataColourSpace>
+    <PCS>XYZ </PCS>
+    <CreationDateTime>2025-05-22T10:53:06</CreationDateTime>
+    <PrimaryPlatform>APPL</PrimaryPlatform>
+    <ProfileFlags EmbeddedInFile="false" UseWithEmbeddedDataOnly="false"/>
+    <DeviceManufacturer>APPL</DeviceManufacturer>
+    <DeviceAttributes ReflectiveOrTransparency="reflective" GlossyOrMatte="glossy" MediaPolarity="positive" MediaColour="colour"/>
+    <RenderingIntent>Perceptual</RenderingIntent>
+    <PCSIlluminant>
+      <XYZNumber X="0.964202880859" Y="1.000000000000" Z="0.824905395508"/>
+    </PCSIlluminant>
+    <ProfileCreator>appl</ProfileCreator>
+  </Header>
+  <Tags>
+    <profileDescriptionTag>
+      <textDescriptionType>
+        <TextData><![CDATA[AW3225QF LLDV]]></TextData>
+      </textDescriptionType>
+    </profileDescriptionTag>
+
+    <PrivateTag TagSignature="dscm">
+      <multiLocalizedUnicodeType>
+        <LocalizedText LanguageCountry="enUS"><![CDATA[AW3225QF LLDV]]></LocalizedText>
+      </multiLocalizedUnicodeType>
+    </PrivateTag>
+
+    <copyrightTag>
+      <textType>
+        <TextData><![CDATA[Copyright Apple Inc., 2025]]></TextData>
+      </textType>
+    </copyrightTag>
+
+    <!--
+        white point *v2 icc profile
+        ===========
+    -->
+
+    <!-- D5000 -->
+    <!--
+        <mediaWhitePointTag>
+        <XYZArrayType>
+        <XYZNumber X="0.964202880859" Y="1.000000000000" Z="0.824905395508"/>
+        </XYZArrayType>
+        </mediaWhitePointTag>
+    -->
+
+    <!-- D6500 -->
+    <!--
+        <mediaWhitePointTag>
+        <XYZArrayType>
+        <XYZNumber X="0.950454711914" Y="1.000000000000" Z="1.089050292969"/>
+        </XYZArrayType>
+        </mediaWhitePointTag>
+    -->
+
+    <!-- D7000 -->
+    <mediaWhitePointTag>
+      <XYZArrayType>
+        <XYZNumber X="0.949645996094" Y="1.000000000000" Z="1.160858154297"/>
+      </XYZArrayType>
+    </mediaWhitePointTag>
+
+    <!-- Windows HDR -->
+    <!--
+        <mediaWhitePointTag>
+        <XYZArrayType>
+        <XYZNumber X="0.541671752930" Y="0.570602416992" Z="0.617248535156"/>
+        </XYZArrayType>
+        </mediaWhitePointTag>
+    -->
+
+    <!--
+        color gamut
+        ===========
+    -->
+
+    <!-- Auto generated (based on EDID?)-->
+    <!--
+        <redColorantTag>
+        <XYZArrayType>
+        <XYZNumber X="0.548614501953" Y="0.244232177734" Z="0.004623413086"/>
+        </XYZArrayType>
+        </redColorantTag>
+
+        <greenColorantTag>
+        <XYZArrayType>
+        <XYZNumber X="0.269363403320" Y="0.699447631836" Z="0.043121337891"/>
+        </XYZArrayType>
+        </greenColorantTag>
+
+        <blueColorantTag>
+        <XYZArrayType>
+        <XYZNumber X="0.146224975586" Y="0.056320190430" Z="0.777160644531"/>
+        </XYZArrayType>
+        </blueColorantTag>
+    -->
+
+    <!-- Alienware_AW3225QF_Native -->
+    <!--
+        <redColorantTag>
+        <XYZArrayType>
+        <XYZNumber X="0.556152343750" Y="0.247726440430" Z="0.005020141602"/>
+        </XYZArrayType>
+        </redColorantTag>
+
+        <greenColorantTag>
+        <XYZArrayType>
+        <XYZNumber X="0.262603759766" Y="0.696685791016" Z="0.043716430664"/>
+        </XYZArrayType>
+        </greenColorantTag>
+
+        <blueColorantTag>
+        <XYZArrayType>
+        <XYZNumber X="0.145507812500" Y="0.055572509766" Z="0.776275634766"/>
+        </XYZArrayType>
+        </blueColorantTag>
+    -->
+
+    <!-- Alienware_AW3225QF_HDR True Black 400 -->
+    <redColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.564620971680" Y="0.250595092773" Z="0.003952026367"/>
+      </XYZArrayType>
+    </redColorantTag>
+
+    <greenColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.262252807617" Y="0.701309204102" Z="0.043075561523"/>
+      </XYZArrayType>
+    </greenColorantTag>
+
+    <blueColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.145477294922" Y="0.061447143555" Z="0.771469116211"/>
+      </XYZArrayType>
+    </blueColorantTag>
+
+    <!-- DCI(P3) -->
+    <!--
+    <redColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.486160278320" Y="0.226684570312" Z="-0.000808715820"/>
+      </XYZArrayType>
+    </redColorantTag>
+
+    <greenColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.323852539062" Y="0.710327148438" Z="0.043228149414"/>
+      </XYZArrayType>
+    </greenColorantTag>
+
+    <blueColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.154190063477" Y="0.062988281250" Z="0.782470703125"/>
+      </XYZArrayType>
+    </blueColorantTag>
+    -->
+
+    <!-- Display P3 -->
+    <!--
+    <redColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.515121459961" Y="0.241195678711" Z="-0.001052856445"/>
+      </XYZArrayType>
+    </redColorantTag>
+
+    <greenColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.291976928711" Y="0.692245483398" Z="0.041885375977"/>
+      </XYZArrayType>
+    </greenColorantTag>
+
+    <blueColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.157104492188" Y="0.066574096680" Z="0.784072875977"/>
+      </XYZArrayType>
+    </blueColorantTag>
+    -->
+
+    <!-- Windows HDR default ? -->
+    <!--
+    <redColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.913833618164" Y="0.405899047852" Z="0.011962890625"/>
+      </XYZArrayType>
+    </redColorantTag>
+
+    <greenColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.319320678711" Y="0.945602416992" Z="0.062118530273"/>
+      </XYZArrayType>
+    </greenColorantTag>
+
+    <blueColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.178237915039" Y="0.071029663086" Z="0.981414794922"/>
+      </XYZArrayType>
+    </blueColorantTag>
+    -->
+
+    <!--
+        gamma
+        ===========
+    -->
+    <redTRCTag>
+      <parametricCurveType>
+        <ParametricCurve FunctionType="0">2.6</ParametricCurve>
+      </parametricCurveType>
+    </redTRCTag>
+
+    <!-- Display P3 Gamma 2.4 -->
+    <!--
+    <redTRCTag>
+      <parametricCurveType>
+        <ParametricCurve FunctionType="3">
+          2.399993896484 0.947860717773 0.052139282227 0.077392578125 0.040451049805
+        </ParametricCurve>
+      </parametricCurveType>
+    </redTRCTag>
+    -->
+
+    <blueTRCTag SameAs="redTRCTag"/>
+
+    <greenTRCTag SameAs="redTRCTag"/>
+
+
+    <!--
+        apple private tags
+        ==================
+    -->
+    <PrivateTag TagSignature="aarg">
+      <parametricCurveType>
+        <ParametricCurve FunctionType="3">
+          2.399993896484 0.947860717773 0.052139282227 0.077392578125 0.040451049805
+        </ParametricCurve>
+      </parametricCurveType>
+    </PrivateTag>
+
+    <PrivateTag TagSignature="aabg" SameAs="PrivateTag" SameAsSignature="aarg"/>
+
+    <PrivateTag TagSignature="aagg" SameAs="PrivateTag" SameAsSignature="aarg"/>
+
+    <PrivateTag TagSignature="vcgt">
+      <PrivateType type="vcgt">
+        <UnknownData>
+          000000000000000100010000000000000000f56900010000000000000000f879
+          000100000000000000010000
+        </UnknownData>
+      </PrivateType>
+    </PrivateTag>
+
+    <PrivateTag TagSignature="ndin">
+      <PrivateType type="ndin">
+        <UnknownData>
+          00000000000000360000af0000004e0000003e000000b5c00000250000000d80
+          0000500000005440000233330002333300023333000000000000
+        </UnknownData>
+      </PrivateType>
+    </PrivateTag>
+
+    <PrivateTag TagSignature="mmod">
+      <PrivateType type="mmod">
+        <UnknownData>
+          00000000000010ac0000a24630444f53e3c85a80000000000000000000000000
+          00000000
+        </UnknownData>
+      </PrivateType>
+    </PrivateTag>
+
+    <PrivateTag TagSignature="vcgp">
+      <PrivateType type="vcgp">
+        <UnknownData>
+          0000000000030000000266660003000000026666000300000002666600000002
+          3333000000000002333300000000000233330000
+        </UnknownData>
+      </PrivateType>
+    </PrivateTag>
+
+  </Tags>
+</IccProfile>
