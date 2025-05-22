@@ -20,13 +20,13 @@
   <Tags>
     <profileDescriptionTag>
       <textDescriptionType>
-        <TextData><![CDATA[AW3225QF D7000]]></TextData>
+        <TextData><![CDATA[AW3225QF Standard]]></TextData>
       </textDescriptionType>
     </profileDescriptionTag>
 
     <PrivateTag TagSignature="dscm">
       <multiLocalizedUnicodeType>
-        <LocalizedText LanguageCountry="enUS"><![CDATA[AW3225QF D7000]]></LocalizedText>
+        <LocalizedText LanguageCountry="enUS"><![CDATA[AW3225QF Standard]]></LocalizedText>
       </multiLocalizedUnicodeType>
     </PrivateTag>
 
@@ -45,7 +45,7 @@
     <!--
         <mediaWhitePointTag>
         <XYZArrayType>
-        <XYZNumber X="0.964202880859" Y="1.000000000000" Z="0.824905395508"/>
+        <XYZNumber X="0.964202880859" Y="1.0" Z="0.824905395508"/>
         </XYZArrayType>
         </mediaWhitePointTag>
     -->
@@ -54,15 +54,24 @@
     <!--
         <mediaWhitePointTag>
         <XYZArrayType>
-        <XYZNumber X="0.950454711914" Y="1.000000000000" Z="1.089050292969"/>
+        <XYZNumber X="0.95045" Y="1.0" Z="1.08905"/>
         </XYZArrayType>
         </mediaWhitePointTag>
     -->
 
     <!-- D7000 -->
+    <!--
     <mediaWhitePointTag>
       <XYZArrayType>
-        <XYZNumber X="0.949645996094" Y="1.000000000000" Z="1.160858154297"/>
+        <XYZNumber X="0.94967" Y="1.0" Z="1.16086"/>
+      </XYZArrayType>
+    </mediaWhitePointTag>
+    -->
+
+    <!-- 1,1,1 is best ? -->
+    <mediaWhitePointTag>
+      <XYZArrayType>
+        <XYZNumber X="1.0" Y="1.0" Z="1.0"/>
       </XYZArrayType>
     </mediaWhitePointTag>
 
@@ -73,41 +82,41 @@
 
     <!-- Auto generated (based on EDID?)-->
     <!--
-        <redColorantTag>
-        <XYZArrayType>
-        <XYZNumber X="0.548614501953" Y="0.244232177734" Z="0.004623413086"/>
-        </XYZArrayType>
-        </redColorantTag>
-
-        <greenColorantTag>
-        <XYZArrayType>
-        <XYZNumber X="0.269363403320" Y="0.699447631836" Z="0.043121337891"/>
-        </XYZArrayType>
-        </greenColorantTag>
-
-        <blueColorantTag>
-        <XYZArrayType>
-        <XYZNumber X="0.146224975586" Y="0.056320190430" Z="0.777160644531"/>
-        </XYZArrayType>
-        </blueColorantTag>
-    -->
-
-    <!-- Alienware_AW3225QF_Native -->
     <redColorantTag>
       <XYZArrayType>
-        <XYZNumber X="0.556152343750" Y="0.247726440430" Z="0.005020141602"/>
+        <XYZNumber X="0.548614501953" Y="0.244232177734" Z="0.004623413086"/>
       </XYZArrayType>
     </redColorantTag>
 
     <greenColorantTag>
       <XYZArrayType>
-        <XYZNumber X="0.262603759766" Y="0.696685791016" Z="0.043716430664"/>
+        <XYZNumber X="0.269363403320" Y="0.699447631836" Z="0.043121337891"/>
       </XYZArrayType>
     </greenColorantTag>
 
     <blueColorantTag>
       <XYZArrayType>
-        <XYZNumber X="0.145507812500" Y="0.055572509766" Z="0.776275634766"/>
+        <XYZNumber X="0.146224975586" Y="0.056320190430" Z="0.777160644531"/>
+      </XYZArrayType>
+    </blueColorantTag>
+    -->
+
+    <!-- Alienware_AW3225QF_Native -->
+    <redColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.55615" Y="0.24773" Z="0.00502"/>
+      </XYZArrayType>
+    </redColorantTag>
+
+    <greenColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.26260" Y="0.69669" Z="0.04372"/>
+      </XYZArrayType>
+    </greenColorantTag>
+
+    <blueColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.14551" Y="0.05557" Z="0.77628"/>
       </XYZArrayType>
     </blueColorantTag>
 

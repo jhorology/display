@@ -45,7 +45,7 @@
     <!--
         <mediaWhitePointTag>
         <XYZArrayType>
-        <XYZNumber X="0.964202880859" Y="1.000000000000" Z="0.824905395508"/>
+        <XYZNumber X="0.96420" Y="1.0" Z="0.82491"/>
         </XYZArrayType>
         </mediaWhitePointTag>
     -->
@@ -54,15 +54,24 @@
     <!--
         <mediaWhitePointTag>
         <XYZArrayType>
-        <XYZNumber X="0.950454711914" Y="1.000000000000" Z="1.089050292969"/>
+        <XYZNumber X="0.95045" Y="1.0" Z="1.08905"/>
         </XYZArrayType>
         </mediaWhitePointTag>
     -->
 
     <!-- D7000 -->
+    <!--
+        <mediaWhitePointTag>
+        <XYZArrayType>
+        <XYZNumber X="0.94965" Y="1.0" Z="1.16086"/>
+        </XYZArrayType>
+        </mediaWhitePointTag>
+    -->
+
+    <!-- 1,1,1 is best ? -->
     <mediaWhitePointTag>
       <XYZArrayType>
-        <XYZNumber X="0.949645996094" Y="1.000000000000" Z="1.160858154297"/>
+        <XYZNumber X="1.0" Y="1.0" Z="1.0"/>
       </XYZArrayType>
     </mediaWhitePointTag>
 
@@ -70,7 +79,7 @@
     <!--
         <mediaWhitePointTag>
         <XYZArrayType>
-        <XYZNumber X="0.541671752930" Y="0.570602416992" Z="0.617248535156"/>
+        <XYZNumber X="0.54167" Y="0.57060" Z="0.61725"/>
         </XYZArrayType>
         </mediaWhitePointTag>
     -->
@@ -123,26 +132,27 @@
     -->
 
     <!-- Alienware_AW3225QF_HDR True Black 400 -->
-    <redColorantTag>
-      <XYZArrayType>
-        <XYZNumber X="0.564620971680" Y="0.250595092773" Z="0.003952026367"/>
-      </XYZArrayType>
-    </redColorantTag>
+    <!--
+        <redColorantTag>
+        <XYZArrayType>
+        <XYZNumber X="0.56462" Y="0.25060" Z="0.00395"/>
+        </XYZArrayType>
+        </redColorantTag>
 
-    <greenColorantTag>
-      <XYZArrayType>
-        <XYZNumber X="0.262252807617" Y="0.701309204102" Z="0.043075561523"/>
-      </XYZArrayType>
-    </greenColorantTag>
+        <greenColorantTag>
+        <XYZArrayType>
+        <XYZNumber X="0.26225" Y="0.70131" Z="0.04308"/>
+        </XYZArrayType>
+        </greenColorantTag>
 
-    <blueColorantTag>
-      <XYZArrayType>
-        <XYZNumber X="0.145477294922" Y="0.061447143555" Z="0.771469116211"/>
-      </XYZArrayType>
-    </blueColorantTag>
+        <blueColorantTag>
+        <XYZArrayType>
+        <XYZNumber X="0.14548" Y="0.06145" Z="0.77147"/>
+        </XYZArrayType>
+        </blueColorantTag>
+    -->
 
     <!-- DCI(P3) -->
-    <!--
     <redColorantTag>
       <XYZArrayType>
         <XYZNumber X="0.486160278320" Y="0.226684570312" Z="-0.000808715820"/>
@@ -160,48 +170,47 @@
         <XYZNumber X="0.154190063477" Y="0.062988281250" Z="0.782470703125"/>
       </XYZArrayType>
     </blueColorantTag>
-    -->
 
     <!-- Display P3 -->
     <!--
-    <redColorantTag>
-      <XYZArrayType>
+        <redColorantTag>
+        <XYZArrayType>
         <XYZNumber X="0.515121459961" Y="0.241195678711" Z="-0.001052856445"/>
-      </XYZArrayType>
-    </redColorantTag>
+        </XYZArrayType>
+        </redColorantTag>
 
-    <greenColorantTag>
-      <XYZArrayType>
+        <greenColorantTag>
+        <XYZArrayType>
         <XYZNumber X="0.291976928711" Y="0.692245483398" Z="0.041885375977"/>
-      </XYZArrayType>
-    </greenColorantTag>
+        </XYZArrayType>
+        </greenColorantTag>
 
-    <blueColorantTag>
-      <XYZArrayType>
+        <blueColorantTag>
+        <XYZArrayType>
         <XYZNumber X="0.157104492188" Y="0.066574096680" Z="0.784072875977"/>
-      </XYZArrayType>
-    </blueColorantTag>
+        </XYZArrayType>
+        </blueColorantTag>
     -->
 
     <!-- Windows HDR default ? -->
     <!--
-    <redColorantTag>
-      <XYZArrayType>
-        <XYZNumber X="0.913833618164" Y="0.405899047852" Z="0.011962890625"/>
-      </XYZArrayType>
-    </redColorantTag>
+        <redColorantTag>
+        <XYZArrayType>
+        <XYZNumber X="0.91383" Y="0.40590" Z="0.01196"/>
+        </XYZArrayType>
+        </redColorantTag>
 
-    <greenColorantTag>
-      <XYZArrayType>
-        <XYZNumber X="0.319320678711" Y="0.945602416992" Z="0.062118530273"/>
-      </XYZArrayType>
-    </greenColorantTag>
+        <greenColorantTag>
+        <XYZArrayType>
+        <XYZNumber X="0.31933" Y="0.94560" Z="0.06212"/>
+        </XYZArrayType>
+        </greenColorantTag>
 
-    <blueColorantTag>
-      <XYZArrayType>
-        <XYZNumber X="0.178237915039" Y="0.071029663086" Z="0.981414794922"/>
-      </XYZArrayType>
-    </blueColorantTag>
+        <blueColorantTag>
+        <XYZArrayType>
+        <XYZNumber X="0.17824" Y="0.07103" Z="0.98141"/>
+        </XYZArrayType>
+        </blueColorantTag>
     -->
 
     <!--
@@ -216,13 +225,13 @@
 
     <!-- Display P3 Gamma 2.4 -->
     <!--
-    <redTRCTag>
-      <parametricCurveType>
+        <redTRCTag>
+        <parametricCurveType>
         <ParametricCurve FunctionType="3">
-          2.399993896484 0.947860717773 0.052139282227 0.077392578125 0.040451049805
+        2.399993896484 0.947860717773 0.052139282227 0.077392578125 0.040451049805
         </ParametricCurve>
-      </parametricCurveType>
-    </redTRCTag>
+        </parametricCurveType>
+        </redTRCTag>
     -->
 
     <blueTRCTag SameAs="redTRCTag"/>

@@ -15,7 +15,7 @@ icc_aw3225qf="file:///Library/ColorSync/Profiles/Displays/AW3225QF-D61FFD6E-1D7D
 icc_dci_p3="file:///System/Library/ColorSync/Profiles/DCI(P3)%20RGB.icc"
 
 icc_aw3225qf_lldv="file://${HOME}/Library/ColorSync/Profiles/AW3225QF%20LLDV.icc"
-icc_aw3225qf_d7000="file://${HOME}/Library/ColorSync/Profiles/AW3225QF%20D7000.icc"
+icc_aw3225qf_standard="file://${HOME}/Library/ColorSync/Profiles/AW3225QF%20Standard.icc"
 
 #---------------------------------------------------
 # normal settings
@@ -28,7 +28,7 @@ declare -A normal_set_1=(
     [refreshRate]=48-240Hz
 )
 declare -A normal_set_2=(
-    [colorProfileURL]=$icc_aw3225qf_d7000
+    [colorProfileURL]=$icc_aw3225qf_standard
     [brightness]=0.75
 )
 
@@ -223,9 +223,9 @@ install() {
     mv -f icc/AW3225QF\ LLDV.icc ~/Library/ColorSync/Profiles/
     log "Installed ~/Library/ColorSync/Profiles/AW3225QF LLDV.icc"
 
-    IccFromXml icc/AW3225QF\ D7000.xml icc/AW3225QF\ D7000.icc
-    mv -f icc/AW3225QF\ D7000.icc ~/Library/ColorSync/Profiles/
-    log "Installed ~/Library/ColorSync/Profiles/AW3225QF D7000.icc"
+    IccFromXml icc/AW3225QF\ Standard.xml icc/AW3225QF\ Standard.icc
+    mv -f icc/AW3225QF\ Standard.icc ~/Library/ColorSync/Profiles/
+    log "Installed ~/Library/ColorSync/Profiles/AW3225QF Standard.icc"
 }
 
 
