@@ -5,66 +5,95 @@ this_script="$(realpath $0)"
 PROJECT=$this_script:h
 cd $PROJECT
 
-declare -A display=(
+# right side main screen
+declare -A aw3225qf=(
   [name]="AW3225QF"
   [bounds_5k]="{0, 0, 2560, 1440}"
   [bounds_4k]="{0, 0, 1920, 1080}"
 )
 
-icc_aw3225qf="file:///Library/ColorSync/Profiles/Displays/AW3225QF-D61FFD6E-1D7D-42D9-A314-59D2ED731496.icc"
-icc_dci_p3="file:///System/Library/ColorSync/Profiles/DCI(P3)%20RGB.icc"
+# left side sub screen
+declare -A s3221qs=(
+    [name]="DELL S3221QS"
+    [bounds_5k]="{0, 0, -2560, 1440}"
+    [bounds_4k]="{0, 0, -1920, 1080}"
+)
 
-icc_aw3225qf_lldv="file://${HOME}/Library/ColorSync/Profiles/AW3225QF%20LLDV.icc"
-icc_aw3225qf_standard="file://${HOME}/Library/ColorSync/Profiles/AW3225QF%20Standard.icc"
+icc_aw3225qf=/Library/ColorSync/Profiles/Displays/AW3225QF-D61FFD6E-1D7D-42D9-A314-59D2ED731496.icc
+icc_dci_p3="/System/Library/ColorSync/Profiles/DCI(P3) RGB.icc"
+
+icc_aw3225qf_lldv="${HOME}/Library/ColorSync/Profiles/AW3225QF LLDV.icc"
+icc_aw3225qf_standard="${HOME}/Library/ColorSync/Profiles/AW3225QF Standard.icc"
+icc_s3221qs_standard="${HOME}/Library/ColorSync/Profiles/DELL S3221QS Standard.icc"
 
 #---------------------------------------------------
-# normal settings
+# aw3225qf normal settings
+#   - factory settinng
 #---------------------------------------------------
-declare -A normal_set_0=(
+declare -A aw3225qf_normal_set_0=(
     [hdr]=off
 )
-declare -A normal_set_1=(
+declare -A aw3225qf_normal_set_1=(
     [resolution]=2560x1440
     [refreshRate]=48-240Hz
 )
-declare -A normal_set_2=(
-    [colorProfileURL]=$icc_aw3225qf_standard
+declare -A aw3225qf_normal_set_2=(
+    [colorProfileURL]="file://${icc_aw3225qf_standard/ /%20}"
     [brightness]=0.75
+)
+
+#---------------------------------------------------
+# normal s3221qs settings
+#   - factory settinng
+#---------------------------------------------------
+declare -A s3221qs_normal_set_0=(
+    [hdr]=off
+)
+declare -A s3221qs_normal_set_1=(
+    [resolution]=2560x1440
+    [refreshRate]=60Hz
+)
+
+# GPU dithering causes flickering
+declare -A s3221qs_normal_set_2=(
+    [gpuDithering]=off
+    [colorProfileURL]="file://${icc_s3221qs_standard/ /%20}"
+    [brightness]=0.65
 )
 
 #---------------------------------------------------
 # dolby vision 4K settings
 #---------------------------------------------------
-declare -A dolby_vision_4k_set_0=(
+declare -A aw3225qf_dolby_vision_4k_set_0=(
     [resolution]=1920x1080
     [refreshRate]=60Hz
 )
-declare -A dolby_vision_4k_set_1=(
+declare -A aw3225qf_dolby_vision_4k_set_1=(
     [hdr]=on
 )
-declare -A dolby_vision_4k_set_2=(
+declare -A aw3225qf_dolby_vision_4k_set_2=(
     [connectionMode]=bpc:12+range:limited
 )
-declare -A dolby_vision_4k_set_3=(
-    [colorProfileURL]=$icc_aw3225qf_lldv
+declare -A aw3225qf_dolby_vision_4k_set_3=(
+    [colorProfileURL]="file://${icc_aw3225qf_lldv/ /%20}"
     [brightness]=1
 )
 
 #---------------------------------------------------
 # dolby vision 5K settings
 #---------------------------------------------------
-declare -A dolby_vision_5k_set_0=(
-    [resolution]=2560x1330
+declare -A aw3225qf_dolby_vision_5k_set_0=(
+    [resolution]=2560x1440
     [refreshRate]=60Hz
 )
-declare -A dolby_vision_5k_set_1=(
+declare -A aw3225qf_dolby_vision_5k_set_1=(
     [hdr]=on
 )
-declare -A dolby_vision_5k_set_2=(
+declare -A aw3225qf_dolby_vision_5k_set_2=(
     [connectionMode]=bpc:12+range:limited
 )
-declare -A dolby_vision_5k_set_3=(
-    [colorProfileURL]=$icc_aw3225qf_lldv
+declare -A aw3225qf_dolby_vision_5k_set_3=(
+    [colorProfileURL]="file://${icc_aw3225qf_lldv/ /%20}"
     [brightness]=1
 )
 
@@ -82,13 +111,15 @@ usage() {
 }
 
 log() {
-    local timestamp=$(date "+%Y-%m-%d %H:%M:%S.%3N")
-    print -P "%F{green}[$timestamp]%f $*"
+    local timestamp=$(date "+%Y-%m-%d %H:%M:%S.%3N ")
+    print -P -n "%F{green}[$timestamp]%f "
+    print "$@"
 }
 
 error() {
     local timestamp=$(date "+%Y-%m-%d %H:%M:%S.%3N")
-    print -P "%F{red}[$timestamp] Error:%f $*"
+    print -P "%F{red}[$timestamp] Error:%f"
+    print "$@"
 }
 
 setup() {
@@ -99,15 +130,19 @@ setup() {
 }
 
 betterdisplay() {
-    local prefix=$1
+    local disp_var=$1
+    local prefix=$2
+    local -A display=(${(Pkv@)disp_var})
+
+
     local i=0
     # bug? betterdisplaycli can't get hdr=off
     local cur_hdr=$(betterdisplaycli get -name="$display[name]" -hdr 2> /dev/null)
     [[ -z $cur_hdr ]] && cur_hdr=off
-    log "current hdr state: $cur_hdr"
+    log "$display[name]: current hdr state: $cur_hdr"
 
     while true; do
-        local var=${prefix}_set_$i
+        local var=${disp_var}_${prefix}_set_$i
         if [[ ! -v "$var" ]]; then
             break
         fi
@@ -126,10 +161,10 @@ betterdisplay() {
         done
         if (( $#args )); then
             if betterdisplaycli set -name="$display[name]" $args[*]; then
-                log "succeeded: betterdisplaycli set ${args[*]}"
+                log "$display[name]: succeeded: betterdisplaycli set ${args[*]}"
                 $hdr_changed && sleep 1.5 || sleep 0.2
             else
-                error "failed: betterdisplaycli set ${args[*]}"
+                error "$display[name]: failed: betterdisplaycli set ${args[*]}"
             fi
         fi
         i=$((i + 1))
@@ -137,7 +172,10 @@ betterdisplay() {
 }
 
 netflix() {
-    betterdisplay dolby_vision_4k
+    local disp_var=$1
+    local -A display=(${(Pkv@)disp_var})
+
+    betterdisplay "$disp_var" dolby_vision_4k
 
     osascript <<-EOF
 tell application "Safari"
@@ -178,7 +216,10 @@ EOF
 }
 
 apple_tv() {
-    betterdisplay dolby_vision_4k
+    local disp_var=$1
+    local -A display=(${(Pkv@)disp_var})
+
+    betterdisplay $disp_var dolby_vision_4k
 
     osascript <<-EOF
 tell application "TV"
@@ -199,35 +240,44 @@ end tell
 EOF
 }
 
-reset_display() {
-    betterdisplay normal
+reset_displays() {
+    betterdisplay aw3225qf normal
+    betterdisplay s3221qs normal
 }
 
 install() {
     local install_location=$1
+    local commmands=(
+        apple-tv
+        netflix
+        dolby-vision-4k
+        dolby-vision-5k
+        reset-display
+    )
+    if [[ ! -d $install_location ]]; then
+        error "Install location not found: $install_location"
+        exit 1
+    fi
+    if [[ ! -w $install_location ]]; then
+        error "Install location not writable: $install_location"
+        exit 1
+    fi
 
-    ln -sf $this_script $install_location/apple-tv
-    log "Installed $install_location/apple-tv"
-    ln -sf $this_script $install_location/netflix
-    log "Installed $install_location/netflix"
-    ln -sf $this_script $install_location/dolby-vision-4k
-    log "Installed $install_location/dolby-vision-4k"
-    ln -sf $this_script $install_location/dolby-vision-5k
-    log "Installed $install_location/dolby-vision-5k"
-    ln -sf $this_script $install_location/reset-display
-    log "Installed $install_location/reset-display"
+    for cmd in $commmands; do
+        ln -sf $this_script $install_location/$cmd
+        log "Installed: $install_location/$cmd"
+    done
 
-
-    # install icc profile
-    IccFromXml icc/AW3225QF\ LLDV.xml icc/AW3225QF\ LLDV.icc
-    mv -f icc/AW3225QF\ LLDV.icc ~/Library/ColorSync/Profiles/
-    log "Installed ~/Library/ColorSync/Profiles/AW3225QF LLDV.icc"
-
-    IccFromXml icc/AW3225QF\ Standard.xml icc/AW3225QF\ Standard.icc
-    mv -f icc/AW3225QF\ Standard.icc ~/Library/ColorSync/Profiles/
-    log "Installed ~/Library/ColorSync/Profiles/AW3225QF Standard.icc"
+    # install icc profiles
+    cd $PROJECT/icc
+    for icc_xml in *.xml; do
+        local icc_name=${icc_xml%.xml}
+        local icc_path="${HOME}/Library/ColorSync/Profiles/${icc_name}.icc"
+        rm -f "$icc_path"
+        IccFromXml "$icc_xml" "$icc_path"
+        log "Installed: $icc_path"
+    done
 }
-
 
 if [[ $command == $(basename $this_script) ]]; then
     zparseopts -D -E -F -- \
@@ -251,18 +301,18 @@ fi
 
 case $command in
     apple-tv )
-        apple_tv
+        apple_tv aw3225qf
         ;;
     netflix )
-        netflix
+        netflix aw3225qf
         ;;
     dolby-vision-4k )
-        betterdisplay dolby_vision_4k
+        betterdisplay aw3225qf dolby_vision_4k
         ;;
     dolby-vision-5k )
-        betterdisplay dolby_vision_5k
+        betterdisplay aw3225qf dolby_vision_5k
         ;;
     reset-display )
-        reset_display
+        reset_displays
         ;;
 esac

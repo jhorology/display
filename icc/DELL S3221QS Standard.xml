@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Coloro Profile for DELL AW32251QF
-    based on auto-genarated profile.
+    Coloro Profile for DELL S3221QS
+    based on auto-genarated profile
 -->
 <IccProfile>
   <Header>
@@ -10,7 +10,7 @@
     <ProfileDeviceClass>mntr</ProfileDeviceClass>
     <DataColourSpace>RGB </DataColourSpace>
     <PCS>XYZ </PCS>
-    <CreationDateTime>2025-05-22T09:36:48</CreationDateTime>
+    <CreationDateTime>2025-05-22T15:46:51</CreationDateTime>
     <PrimaryPlatform>APPL</PrimaryPlatform>
     <ProfileFlags EmbeddedInFile="false" UseWithEmbeddedDataOnly="false"/>
     <DeviceManufacturer>APPL</DeviceManufacturer>
@@ -24,13 +24,13 @@
   <Tags>
     <profileDescriptionTag>
       <textDescriptionType>
-        <TextData><![CDATA[AW3225QF Standard]]></TextData>
+        <TextData><![CDATA[DELL S3221QS Standard]]></TextData>
       </textDescriptionType>
     </profileDescriptionTag>
 
     <PrivateTag TagSignature="dscm">
       <multiLocalizedUnicodeType>
-        <LocalizedText LanguageCountry="enUS"><![CDATA[AW3225QF Standard]]></LocalizedText>
+        <LocalizedText LanguageCountry="enUS"><![CDATA[DELL S3221QS Standard]]></LocalizedText>
       </multiLocalizedUnicodeType>
     </PrivateTag>
 
@@ -39,36 +39,14 @@
         <TextData><![CDATA[Based on auto-generated profile. Copyright Apple Inc., 2025]]></TextData>
       </textType>
     </copyrightTag>
-    <!--
-        white point *v2 icc profile
-        ===========
-    -->
-
-    <!-- D5000 -->
-    <!--
-        <mediaWhitePointTag>
-        <XYZArrayType>
-        <XYZNumber X="0.964202880859" Y="1.0" Z="0.824905395508"/>
-        </XYZArrayType>
-        </mediaWhitePointTag>
-    -->
 
     <!-- D6500 -->
     <!--
         <mediaWhitePointTag>
         <XYZArrayType>
-        <XYZNumber X="0.95045" Y="1.0" Z="1.08905"/>
+        <XYZNumber X="0.952575683594" Y="1.000000000000" Z="1.009185791016"/>
         </XYZArrayType>
         </mediaWhitePointTag>
-    -->
-
-    <!-- D7000 -->
-    <!--
-    <mediaWhitePointTag>
-      <XYZArrayType>
-        <XYZNumber X="0.94967" Y="1.0" Z="1.16086"/>
-      </XYZArrayType>
-    </mediaWhitePointTag>
     -->
 
     <!--
@@ -81,27 +59,22 @@
       </XYZArrayType>
     </mediaWhitePointTag>
 
-    <!--
-        color gamut
-        ===========
-    -->
-
-    <!-- Alienware_AW3225QF_Native -->
+    <!-- S3221QS Standard mode native color gamut -->
     <redColorantTag>
       <XYZArrayType>
-        <XYZNumber X="0.55615" Y="0.24773" Z="0.00502"/>
+        <XYZNumber X="0.494415283203" Y="0.227355957031" Z="0.006439208984"/>
       </XYZArrayType>
     </redColorantTag>
 
     <greenColorantTag>
       <XYZArrayType>
-        <XYZNumber X="0.26260" Y="0.69669" Z="0.04372"/>
+        <XYZNumber X="0.314392089844" Y="0.700881958008" Z="0.064376831055"/>
       </XYZArrayType>
     </greenColorantTag>
 
     <blueColorantTag>
       <XYZArrayType>
-        <XYZNumber X="0.14551" Y="0.05557" Z="0.77628"/>
+        <XYZNumber X="0.155395507812" Y="0.071762084961" Z="0.754089355469"/>
       </XYZArrayType>
     </blueColorantTag>
 
@@ -141,7 +114,7 @@
 
     <!--
         apple private tags
-        ==================
+        ===================
     -->
     <PrivateTag TagSignature="aarg">
       <parametricCurveType>
@@ -156,8 +129,8 @@
     <PrivateTag TagSignature="vcgt">
       <PrivateType type="vcgt">
         <UnknownData>
-          000000000000000100010000000000000000f56900010000000000000000f879
-          000100000000000000010000
+          000000000000000100010000000000000001000000010000000000000000fc1e
+          00010000000000000000f334
         </UnknownData>
       </PrivateType>
     </PrivateTag>
@@ -165,8 +138,8 @@
     <PrivateTag TagSignature="ndin">
       <PrivateType type="ndin">
         <UnknownData>
-          00000000000000360000af0000004e0000003e000000b5c00000250000000d80
-          0000500000005440000233330002333300023333000000000000
+          00000000000000360000ad0000004fc0000046c00000a8000000274000001140
+          0000504000005440000233330002333300023333000000000000
         </UnknownData>
       </PrivateType>
     </PrivateTag>
@@ -174,7 +147,7 @@
     <PrivateTag TagSignature="mmod">
       <PrivateType type="mmod">
         <UnknownData>
-          00000000000010ac0000a24630444f53e3c85a80000000000000000000000000
+          00000000000010ac0000d10730305256db3d3200000000000000000000000000
           00000000
         </UnknownData>
       </PrivateType>

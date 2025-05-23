@@ -1,111 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Coloro Profile for DELL AW32251QF LLDV mode
+    based on DCI(P3) RGB.icc
+-->
 <IccProfile>
   <Header>
     <PreferredCMMType>appl</PreferredCMMType>
-    <ProfileVersion>2.10</ProfileVersion>
+    <ProfileVersion>4.00</ProfileVersion>
     <ProfileDeviceClass>mntr</ProfileDeviceClass>
     <DataColourSpace>RGB </DataColourSpace>
     <PCS>XYZ </PCS>
-    <CreationDateTime>2025-05-22T10:53:06</CreationDateTime>
+    <CreationDateTime>2025-05-23T00:00:00</CreationDateTime>
     <PrimaryPlatform>APPL</PrimaryPlatform>
     <ProfileFlags EmbeddedInFile="false" UseWithEmbeddedDataOnly="false"/>
     <DeviceManufacturer>APPL</DeviceManufacturer>
     <DeviceAttributes ReflectiveOrTransparency="reflective" GlossyOrMatte="glossy" MediaPolarity="positive" MediaColour="colour"/>
     <RenderingIntent>Perceptual</RenderingIntent>
+
+    <!-- *PCSIlluminant has no effect on LLDV mode -->
     <PCSIlluminant>
       <XYZNumber X="0.964202880859" Y="1.000000000000" Z="0.824905395508"/>
     </PCSIlluminant>
-    <ProfileCreator>appl</ProfileCreator>
+
+    <!--
+        <ProfileCreator>appl</ProfileCreator>
+        <ProfileID>A0F5A0A16132B9591839DFF3068BB15F</ProfileID>
+    -->
+    <ProfileCreator>jhorology</ProfileCreator>
   </Header>
   <Tags>
     <profileDescriptionTag>
-      <textDescriptionType>
-        <TextData><![CDATA[AW3225QF LLDV]]></TextData>
-      </textDescriptionType>
-    </profileDescriptionTag>
-
-    <PrivateTag TagSignature="dscm">
       <multiLocalizedUnicodeType>
         <LocalizedText LanguageCountry="enUS"><![CDATA[AW3225QF LLDV]]></LocalizedText>
       </multiLocalizedUnicodeType>
-    </PrivateTag>
+    </profileDescriptionTag>
 
     <copyrightTag>
-      <textType>
-        <TextData><![CDATA[Copyright Apple Inc., 2025]]></TextData>
-      </textType>
+      <multiLocalizedUnicodeType>
+        <LocalizedText LanguageCountry="enUS"><![CDATA[Based on DCI(P3) RGB.icc Copyright Apple Inc., 2022]]></LocalizedText>
+      </multiLocalizedUnicodeType>
     </copyrightTag>
 
-    <!--
-        white point *v2 icc profile
-        ===========
-    -->
-
-    <!-- D5000 -->
-    <!--
-        <mediaWhitePointTag>
-        <XYZArrayType>
-        <XYZNumber X="0.96420" Y="1.0" Z="0.82491"/>
-        </XYZArrayType>
-        </mediaWhitePointTag>
-    -->
-
-    <!-- D6500 -->
-    <!--
-        <mediaWhitePointTag>
-        <XYZArrayType>
-        <XYZNumber X="0.95045" Y="1.0" Z="1.08905"/>
-        </XYZArrayType>
-        </mediaWhitePointTag>
-    -->
-
-    <!-- D7000 -->
-    <!--
-        <mediaWhitePointTag>
-        <XYZArrayType>
-        <XYZNumber X="0.94965" Y="1.0" Z="1.16086"/>
-        </XYZArrayType>
-        </mediaWhitePointTag>
-    -->
-
-    <!-- 1,1,1 is best ? -->
+    <!-- *mediaWhitePointTag has no effect on LLDV mode -->
     <mediaWhitePointTag>
       <XYZArrayType>
-        <XYZNumber X="1.0" Y="1.0" Z="1.0"/>
+        <XYZNumber X="0.964187622070" Y="1.000000000000" Z="0.824890136719"/>
       </XYZArrayType>
     </mediaWhitePointTag>
 
-    <!-- Windows HDR -->
+    <!-- DCI(P3) -->
     <!--
-        <mediaWhitePointTag>
-        <XYZArrayType>
-        <XYZNumber X="0.54167" Y="0.57060" Z="0.61725"/>
-        </XYZArrayType>
-        </mediaWhitePointTag>
+        - DV content color is very close to other apple devices
+        - Especially the small white text have a slight green tint.
+        - Regular use other than watching DV content is difficult.
+          It's managing pretty well on Windows.
     -->
+    <redColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.486160278320" Y="0.226684570312" Z="-0.000808715820"/>
+      </XYZArrayType>
+    </redColorantTag>
 
+    <greenColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.323852539062" Y="0.710327148438" Z="0.043228149414"/>
+      </XYZArrayType>
+    </greenColorantTag>
+
+    <blueColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.154190063477" Y="0.062988281250" Z="0.782470703125"/>
+      </XYZArrayType>
+    </blueColorantTag>
+
+
+    <!-- Alienware_AW3225QF_HDR True Black 400 -->
     <!--
-        color gamut
-        ===========
+        - color is very close to sony TV's netflix exlusive mode.
+        - a little green tint
     -->
-
-    <!-- Auto generated (based on EDID?)-->
     <!--
         <redColorantTag>
         <XYZArrayType>
-        <XYZNumber X="0.548614501953" Y="0.244232177734" Z="0.004623413086"/>
+        <XYZNumber X="0.56462" Y="0.25060" Z="0.00395"/>
         </XYZArrayType>
         </redColorantTag>
 
         <greenColorantTag>
         <XYZArrayType>
-        <XYZNumber X="0.269363403320" Y="0.699447631836" Z="0.043121337891"/>
+        <XYZNumber X="0.26225" Y="0.70131" Z="0.04308"/>
         </XYZArrayType>
         </greenColorantTag>
 
         <blueColorantTag>
         <XYZArrayType>
-        <XYZNumber X="0.146224975586" Y="0.056320190430" Z="0.777160644531"/>
+        <XYZNumber X="0.14548" Y="0.06145" Z="0.77147"/>
+        </XYZArrayType>
+        </blueColorantTag>
+    -->
+
+    <!-- Display P3 -->
+    <!--
+        <redColorantTag>
+        <XYZArrayType>
+        <XYZNumber X="0.515121459961" Y="0.241195678711" Z="-0.001052856445"/>
+        </XYZArrayType>
+        </redColorantTag>
+
+        <greenColorantTag>
+        <XYZArrayType>
+        <XYZNumber X="0.291976928711" Y="0.692245483398" Z="0.041885375977"/>
+        </XYZArrayType>
+        </greenColorantTag>
+
+        <blueColorantTag>
+        <XYZArrayType>
+        <XYZNumber X="0.157104492188" Y="0.066574096680" Z="0.784072875977"/>
         </XYZArrayType>
         </blueColorantTag>
     -->
@@ -131,67 +141,6 @@
         </blueColorantTag>
     -->
 
-    <!-- Alienware_AW3225QF_HDR True Black 400 -->
-    <!--
-        <redColorantTag>
-        <XYZArrayType>
-        <XYZNumber X="0.56462" Y="0.25060" Z="0.00395"/>
-        </XYZArrayType>
-        </redColorantTag>
-
-        <greenColorantTag>
-        <XYZArrayType>
-        <XYZNumber X="0.26225" Y="0.70131" Z="0.04308"/>
-        </XYZArrayType>
-        </greenColorantTag>
-
-        <blueColorantTag>
-        <XYZArrayType>
-        <XYZNumber X="0.14548" Y="0.06145" Z="0.77147"/>
-        </XYZArrayType>
-        </blueColorantTag>
-    -->
-
-    <!-- DCI(P3) -->
-    <redColorantTag>
-      <XYZArrayType>
-        <XYZNumber X="0.486160278320" Y="0.226684570312" Z="-0.000808715820"/>
-      </XYZArrayType>
-    </redColorantTag>
-
-    <greenColorantTag>
-      <XYZArrayType>
-        <XYZNumber X="0.323852539062" Y="0.710327148438" Z="0.043228149414"/>
-      </XYZArrayType>
-    </greenColorantTag>
-
-    <blueColorantTag>
-      <XYZArrayType>
-        <XYZNumber X="0.154190063477" Y="0.062988281250" Z="0.782470703125"/>
-      </XYZArrayType>
-    </blueColorantTag>
-
-    <!-- Display P3 -->
-    <!--
-        <redColorantTag>
-        <XYZArrayType>
-        <XYZNumber X="0.515121459961" Y="0.241195678711" Z="-0.001052856445"/>
-        </XYZArrayType>
-        </redColorantTag>
-
-        <greenColorantTag>
-        <XYZArrayType>
-        <XYZNumber X="0.291976928711" Y="0.692245483398" Z="0.041885375977"/>
-        </XYZArrayType>
-        </greenColorantTag>
-
-        <blueColorantTag>
-        <XYZArrayType>
-        <XYZNumber X="0.157104492188" Y="0.066574096680" Z="0.784072875977"/>
-        </XYZArrayType>
-        </blueColorantTag>
-    -->
-
     <!-- Windows HDR default ? -->
     <!--
         <redColorantTag>
@@ -213,83 +162,34 @@
         </blueColorantTag>
     -->
 
-    <!--
-        gamma
-        ===========
-    -->
+    <!-- TODO fix green tint by parametric curve -->
     <redTRCTag>
       <parametricCurveType>
         <ParametricCurve FunctionType="0">2.6</ParametricCurve>
       </parametricCurveType>
     </redTRCTag>
-
-    <!-- Display P3 Gamma 2.4 -->
-    <!--
-        <redTRCTag>
-        <parametricCurveType>
-        <ParametricCurve FunctionType="3">
-        2.399993896484 0.947860717773 0.052139282227 0.077392578125 0.040451049805
-        </ParametricCurve>
-        </parametricCurveType>
-        </redTRCTag>
-    -->
-
     <blueTRCTag SameAs="redTRCTag"/>
-
     <greenTRCTag SameAs="redTRCTag"/>
 
 
-    <!--
-        apple private tags
-        ==================
-    -->
-    <PrivateTag TagSignature="aarg">
-      <parametricCurveType>
-        <ParametricCurve FunctionType="3">
-          2.399993896484 0.947860717773 0.052139282227 0.077392578125 0.040451049805
-        </ParametricCurve>
-      </parametricCurveType>
-    </PrivateTag>
+    <!-- *chromaticAdaptationTag has no effect on LLDV mode -->
+    <chromaticAdaptationTag>
+      <s15Fixed16ArrayType>
+        <!-- DCI(P3) -->
+        <Array>
+          1.073822021484 0.038803100586 -0.036895751953
+          0.055572509766 0.963989257812 -0.014343261719
+          -0.004272460938 0.005294799805 0.862777709961
+        </Array>
+      </s15Fixed16ArrayType>
+    </chromaticAdaptationTag>
 
-    <PrivateTag TagSignature="aabg" SameAs="PrivateTag" SameAsSignature="aarg"/>
-
-    <PrivateTag TagSignature="aagg" SameAs="PrivateTag" SameAsSignature="aarg"/>
-
-    <PrivateTag TagSignature="vcgt">
-      <PrivateType type="vcgt">
-        <UnknownData>
-          000000000000000100010000000000000000f56900010000000000000000f879
-          000100000000000000010000
-        </UnknownData>
-      </PrivateType>
-    </PrivateTag>
-
-    <PrivateTag TagSignature="ndin">
-      <PrivateType type="ndin">
-        <UnknownData>
-          00000000000000360000af0000004e0000003e000000b5c00000250000000d80
-          0000500000005440000233330002333300023333000000000000
-        </UnknownData>
-      </PrivateType>
-    </PrivateTag>
-
-    <PrivateTag TagSignature="mmod">
-      <PrivateType type="mmod">
-        <UnknownData>
-          00000000000010ac0000a24630444f53e3c85a80000000000000000000000000
-          00000000
-        </UnknownData>
-      </PrivateType>
-    </PrivateTag>
-
-    <PrivateTag TagSignature="vcgp">
-      <PrivateType type="vcgp">
-        <UnknownData>
-          0000000000030000000266660003000000026666000300000002666600000002
-          3333000000000002333300000000000233330000
-        </UnknownData>
-      </PrivateType>
-    </PrivateTag>
+    <!-- *luminanceTag has no effect on LLDV mode -->
+    <luminanceTag>
+      <XYZArrayType>
+        <XYZNumber X="400.0" Y="400.0" Z="400.0"/>
+      </XYZArrayType>
+    </luminanceTag>
 
   </Tags>
 </IccProfile>
