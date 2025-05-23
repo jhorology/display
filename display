@@ -38,7 +38,7 @@ declare -A aw3225qf_normal_set_1=(
     [refreshRate]=48-240Hz
 )
 declare -A aw3225qf_normal_set_2=(
-    [colorProfileURL]="file://${icc_aw3225qf_standard/ /%20}"
+    [colorProfileURL]="file://${icc_aw3225qf_standard// /%20}"
     [brightness]=0.75
 )
 
@@ -57,7 +57,7 @@ declare -A s3221qs_normal_set_1=(
 # GPU dithering causes flickering
 declare -A s3221qs_normal_set_2=(
     [gpuDithering]=off
-    [colorProfileURL]="file://${icc_s3221qs_standard/ /%20}"
+    [colorProfileURL]="file://${icc_s3221qs_standard// /%20}"
     [brightness]=0.65
 )
 
@@ -75,7 +75,7 @@ declare -A aw3225qf_dolby_vision_4k_set_2=(
     [connectionMode]=bpc:12+range:limited
 )
 declare -A aw3225qf_dolby_vision_4k_set_3=(
-    [colorProfileURL]="file://${icc_aw3225qf_lldv/ /%20}"
+    [colorProfileURL]="file://${icc_aw3225qf_lldv// /%20}"
     [brightness]=1
 )
 
@@ -93,7 +93,7 @@ declare -A aw3225qf_dolby_vision_5k_set_2=(
     [connectionMode]=bpc:12+range:limited
 )
 declare -A aw3225qf_dolby_vision_5k_set_3=(
-    [colorProfileURL]="file://${icc_aw3225qf_lldv/ /%20}"
+    [colorProfileURL]="file://${icc_aw3225qf_lldv// /%20}"
     [brightness]=1
 )
 
@@ -118,7 +118,7 @@ log() {
 
 error() {
     local timestamp=$(date "+%Y-%m-%d %H:%M:%S.%3N")
-    print -P "%F{red}[$timestamp] Error:%f"
+    print -P -n "%F{red}[$timestamp] Error:%f"
     print "$@"
 }
 
