@@ -26,6 +26,8 @@ icc_aw3225qf_lldv="${HOME}/Library/ColorSync/Profiles/AW3225QF LLDV.icc"
 icc_aw3225qf_standard="${HOME}/Library/ColorSync/Profiles/AW3225QF Standard.icc"
 icc_s3221qs_standard="${HOME}/Library/ColorSync/Profiles/DELL S3221QS Standard.icc"
 
+which gdate &> /dev/null && has_coreutils=true || has_coreutils=false
+
 #---------------------------------------------------
 # aw3225qf normal settings
 #   - factory settinng
@@ -55,10 +57,16 @@ declare -A s3221qs_normal_set_1=(
 )
 
 # GPU dithering causes flickering
+# brightness is not linear
+#     1   -> 100%
+#   0.9   ->  80%
+#   0.85  ->  70%
+#   0.825 ->  65%
+#   0.8   ->  60%
 declare -A s3221qs_normal_set_2=(
     [gpuDithering]=off
     [colorProfileURL]="file://${icc_s3221qs_standard// /%20}"
-    [brightness]=0.65
+    [brightness]=0.825
 )
 
 #---------------------------------------------------
@@ -111,7 +119,9 @@ usage() {
 }
 
 log() {
-    local timestamp=$(date "+%Y-%m-%d %H:%M:%S.%3N ")
+    $has_coreutils && \
+        local timestamp=$(gdate "+%Y-%m-%d %H:%M:%S.%3N") || \
+            local timestamp=$(date "+%Y-%m-%d %H:%M:%S")
     print -P -n "%F{green}[$timestamp]%f "
     print "$@"
 }
