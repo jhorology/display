@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Coloro Profile for DELL S3221QS
-    based on auto-genarated profile
+ICC v2 Color Profile for DELL S3221QS
+based on EDID
+
+Red    0.6757  0.3115
+Green  0.2763  0.6562
+Blue   0.1533  0.0673
+White  0.3134  0.3291 *almost D65
+Gamma  2.2
 -->
 <IccProfile>
   <Header>
@@ -13,7 +19,7 @@
     <CreationDateTime>2025-05-22T15:46:51</CreationDateTime>
     <PrimaryPlatform>APPL</PrimaryPlatform>
     <ProfileFlags EmbeddedInFile="false" UseWithEmbeddedDataOnly="false"/>
-    <DeviceManufacturer>APPL</DeviceManufacturer>
+    <DeviceManufacturer>DELL</DeviceManufacturer>
     <DeviceAttributes ReflectiveOrTransparency="reflective" GlossyOrMatte="glossy" MediaPolarity="positive" MediaColour="colour"/>
     <RenderingIntent>Perceptual</RenderingIntent>
     <PCSIlluminant>
@@ -24,57 +30,43 @@
   <Tags>
     <profileDescriptionTag>
       <textDescriptionType>
-        <TextData><![CDATA[DELL S3221QS Standard]]></TextData>
+        <TextData><![CDATA[DELL S3221QS EDID Strict v2]]></TextData>
       </textDescriptionType>
     </profileDescriptionTag>
 
     <PrivateTag TagSignature="dscm">
       <multiLocalizedUnicodeType>
-        <LocalizedText LanguageCountry="enUS"><![CDATA[DELL S3221QS Standard]]></LocalizedText>
+        <LocalizedText LanguageCountry="enUS"><![CDATA[DELL S3221QS EDID Strict v2]]></LocalizedText>
       </multiLocalizedUnicodeType>
     </PrivateTag>
 
     <copyrightTag>
       <textType>
-        <TextData><![CDATA[Based on auto-generated profile. Copyright Apple Inc., 2025]]></TextData>
+        <TextData><![CDATA[SPDX-License-Identifier: MIT]]></TextData>
       </textType>
     </copyrightTag>
 
-    <!-- D6500 -->
-    <!--
-        <mediaWhitePointTag>
-        <XYZArrayType>
-        <XYZNumber X="0.952575683594" Y="1.000000000000" Z="1.009185791016"/>
-        </XYZArrayType>
-        </mediaWhitePointTag>
-    -->
-
-    <!--
-        For this type of profile,
-        I think white point 1,1,1 + native color gamut is neutral D6500 setting on DELL Display.
-    -->
     <mediaWhitePointTag>
       <XYZArrayType>
-        <XYZNumber X="1.0" Y="1.0" Z="1.0"/>
+        <XYZNumber X="0.9522941355211182" Y="1" Z="1.0862959586751746"/>
       </XYZArrayType>
     </mediaWhitePointTag>
 
-    <!-- S3221QS Standard mode native color gamut -->
     <redColorantTag>
       <XYZArrayType>
-        <XYZNumber X="0.494415283203" Y="0.227355957031" Z="0.006439208984"/>
+        <XYZNumber X="0.6757" Y="0.3115" Z="0.0128"/>
       </XYZArrayType>
     </redColorantTag>
 
     <greenColorantTag>
       <XYZArrayType>
-        <XYZNumber X="0.314392089844" Y="0.700881958008" Z="0.064376831055"/>
+        <XYZNumber X="0.2763" Y="0.6562" Z="0.0675"/>
       </XYZArrayType>
     </greenColorantTag>
 
     <blueColorantTag>
       <XYZArrayType>
-        <XYZNumber X="0.155395507812" Y="0.071762084961" Z="0.754089355469"/>
+        <XYZNumber X="0.1533" Y="0.0673" Z="0.7794"/>
       </XYZArrayType>
     </blueColorantTag>
 
@@ -82,17 +74,6 @@
         gamma characteriscs
         ===================
     -->
-    <!-- can't use parametrix curve in v2 profile -->
-    <!--
-    <redTRCTag>
-      <parametricCurveType>
-        <ParametricCurve FunctionType="0">2.2</ParametricCurve>
-      </parametricCurveType>
-    </redTRCTag>
-    <blueTRCTag SameAs="redTRCTag"/>
-    <greenTRCTag SameAs="redTRCTag"/>
-    -->
-
     <!--
         LUT from S3221QS.icm
         - almost same curve as Display P3
@@ -309,56 +290,5 @@
         </Curve>
       </curveType>
     </blueTRCTag>
-
-    <!--
-        apple private tags
-        ===================
-    -->
-    <PrivateTag TagSignature="aarg">
-      <parametricCurveType>
-        <ParametricCurve FunctionType="3">
-          2.399993896484 0.947860717773 0.052139282227 0.077392578125 0.040451049805
-        </ParametricCurve>
-      </parametricCurveType>
-    </PrivateTag>
-    <PrivateTag TagSignature="aabg" SameAs="PrivateTag" SameAsSignature="aarg"/>
-    <PrivateTag TagSignature="aagg" SameAs="PrivateTag" SameAsSignature="aarg"/>
-
-    <PrivateTag TagSignature="vcgt">
-      <PrivateType type="vcgt">
-        <UnknownData>
-          000000000000000100010000000000000001000000010000000000000000fc1e
-          00010000000000000000f334
-        </UnknownData>
-      </PrivateType>
-    </PrivateTag>
-
-    <PrivateTag TagSignature="ndin">
-      <PrivateType type="ndin">
-        <UnknownData>
-          00000000000000360000ad0000004fc0000046c00000a8000000274000001140
-          0000504000005440000233330002333300023333000000000000
-        </UnknownData>
-      </PrivateType>
-    </PrivateTag>
-
-    <PrivateTag TagSignature="mmod">
-      <PrivateType type="mmod">
-        <UnknownData>
-          00000000000010ac0000d10730305256db3d3200000000000000000000000000
-          00000000
-        </UnknownData>
-      </PrivateType>
-    </PrivateTag>
-
-    <PrivateTag TagSignature="vcgp">
-      <PrivateType type="vcgp">
-        <UnknownData>
-          0000000000030000000266660003000000026666000300000002666600000002
-          3333000000000002333300000000000233330000
-        </UnknownData>
-      </PrivateType>
-    </PrivateTag>
-
   </Tags>
 </IccProfile>

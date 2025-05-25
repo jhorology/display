@@ -24,7 +24,11 @@ icc_dci_p3="/System/Library/ColorSync/Profiles/DCI(P3) RGB.icc"
 
 icc_aw3225qf_lldv="${HOME}/Library/ColorSync/Profiles/AW3225QF LLDV.icc"
 icc_aw3225qf_standard="${HOME}/Library/ColorSync/Profiles/AW3225QF Standard.icc"
+icc_aw3225qf_edid_strict_v2="${HOME}/Library/ColorSync/Profiles/AW3225QF EDID Strict v2.icc"
+icc_aw3225qf_edid_strict_v4="${HOME}/Library/ColorSync/Profiles/AW3225QF EDID Strict v4.icc"
 icc_s3221qs_standard="${HOME}/Library/ColorSync/Profiles/DELL S3221QS Standard.icc"
+icc_s3221qs_edid_strict_v2="${HOME}/Library/ColorSync/Profiles/DELL S3221QS EDID Strict v2.icc"
+icc_s3221qs_edid_strict_v4="${HOME}/Library/ColorSync/Profiles/DELL S3221QS EDID Strict v4.icc"
 
 if which gdate &> /dev/null; then
     alias ts='gdate "+%Y-%m-%d %H:%M:%S.%3N"'
@@ -44,7 +48,7 @@ declare -A aw3225qf_normal_set_1=(
     [refreshRate]=48-240Hz
 )
 declare -A aw3225qf_normal_set_2=(
-    [colorProfileURL]="file://${icc_aw3225qf_standard// /%20}"
+    [colorProfileURL]="file://${icc_aw3225qf_edid_strict_v4// /%20}"
     [brightness]=0.75
 )
 
@@ -63,7 +67,7 @@ declare -A s3221qs_normal_set_1=(
 # GPU dithering causes flickering
 declare -A s3221qs_normal_set_2=(
     [gpuDithering]=off
-    [colorProfileURL]="file://${icc_s3221qs_standard// /%20}"
+    [colorProfileURL]="file://${icc_s3221qs_edid_strict_v4// /%20}"
     [brightness]=0.65
 )
 

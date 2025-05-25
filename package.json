@@ -1,0 +1,30 @@
+{
+  "name": "display",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhorology/display.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jhorology/display/issues"
+  },
+  "homepage": "https://github.com/jhorology/display#readme",
+  "description": "",
+  "dependencies": {
+    "mathjs": "^14.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.27.0",
+    "eslint-config": "^0.3.0",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-node": "^11.1.0",
+    "prettier": "^3.5.3"
+  }
+}
