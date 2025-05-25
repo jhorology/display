@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Coloro Profile for DELL AW32251QF LLDV mode
-    based on DCI(P3) RGB.icc
+Coloro Profile for DELL AW32251QF LLDV mode
+based on DCI(P3) RGB.icc
 -->
 <IccProfile>
   <Header>
@@ -53,7 +53,7 @@
         - DV content color is very close to other apple devices
         - Especially the small white text have a slight green tint.
         - Regular use other than watching DV content is difficult.
-          It's managing pretty well on Windows.
+        It's managing pretty well on Windows.
     -->
     <redColorantTag>
       <XYZArrayType>
@@ -72,7 +72,6 @@
         <XYZNumber X="0.154190063477" Y="0.062988281250" Z="0.782470703125"/>
       </XYZArrayType>
     </blueColorantTag>
-
 
     <!-- Alienware_AW3225QF_HDR True Black 400 -->
     <!--
@@ -181,6 +180,14 @@
           0.055572509766 0.963989257812 -0.014343261719
           -0.004272460938 0.005294799805 0.862777709961
         </Array>
+        <!-- Display P3 -->
+        <!--
+            <Array>
+            1.047882080078 0.022918701172 -0.050201416016
+            0.029586791992 0.990478515625 -0.017059326172
+            -0.009231567383 0.015075683594 0.751678466797
+            </Array>
+        -->
       </s15Fixed16ArrayType>
     </chromaticAdaptationTag>
 

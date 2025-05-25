@@ -48,7 +48,7 @@ declare -A aw3225qf_normal_set_1=(
     [refreshRate]=48-240Hz
 )
 declare -A aw3225qf_normal_set_2=(
-    [colorProfileURL]="file://${icc_aw3225qf_edid_strict_v4// /%20}"
+    [colorProfileURL]="file://${icc_aw3225qf_standard// /%20}"
     [brightness]=0.75
 )
 
@@ -67,7 +67,7 @@ declare -A s3221qs_normal_set_1=(
 # GPU dithering causes flickering
 declare -A s3221qs_normal_set_2=(
     [gpuDithering]=off
-    [colorProfileURL]="file://${icc_s3221qs_edid_strict_v4// /%20}"
+    [colorProfileURL]="file://${icc_s3221qs_standard// /%20}"
     [brightness]=0.65
 )
 

@@ -16,12 +16,46 @@ const s3221qs_edid = {
   white: [0.3134, 0.3291]
 }
 
+const bladford_transform = [
+  [0.8951, 0.2664, -0.1614],
+  [-0.7502, 1.7135, 0.0367],
+  [0.0389, -0.0685, 1.0296]
+]
+
+const bladford_inverse_transform = [
+  [0.986992905, -0.147054256, 0.159962118],
+  [0.432305306, 0.518360271, 0.049291229],
+  [-0.00852866, 0.040042821, 0.968486735]
+]
+
+// based on Display P3.icc
 const d50_white = [0.96418762207, 1.0, 0.824890136719]
 const transform_d65_to_d50 = [
   [1.047882080078, 0.022918701172, -0.050201416016],
   [0.029586791992, 0.990478515625, -0.017059326172],
   [0.009231567383, 0.015075683594, 0.751678466797]
 ]
+
+function calibrate(edid, measured_white_xy) {
+  const edid_white = xy2xyz(edid.white),
+    white = xy2xyz(measured_white_xy),
+    transform = math.multiply(
+      bladford_inverse_transform,
+      [
+        [white[0] / edid_white[0], 0, 0],
+        [0, white[1] / edid_white[1], 0],
+        [0, 0, white[2] / edid_white[2]]
+      ],
+      bladford_transform
+    )
+  const result = Object.assign({}, edid, {
+    red: scaleSumUpTo1(math.multiply(transform, xy2xyz(edid.red))).slice(0, 2),
+    green: scaleSumUpTo1(math.multiply(transform, xy2xyz(edid.green))).slice(0, 2),
+    blue: scaleSumUpTo1(math.multiply(transform, xy2xyz(edid.blue))).slice(0, 2),
+    white: measured_white_xy
+  })
+  return result
+}
 
 function xy2xyz(xy) {
   return [xy[0], xy[1], Math.trunc((1 - xy[0] - xy[1]) * 10000) / 10000]
@@ -97,5 +131,14 @@ function v4profile(edid) {
 
 v2profile(aw3225qf_edid)
 v4profile(aw3225qf_edid)
+
 v2profile(s3221qs_edid)
 v4profile(s3221qs_edid)
+
+// Slightly warmer color(D60 ?) than macbook
+// v2profile(calibrate(aw3225qf_edid, [0.3333, 0.3333]))
+// v4profile(calibrate(aw3225qf_edid, [0.3333, 0.33767]))
+
+// white point is massively shifted
+// v2profile(calibrate(s3221qs_edid, [0.3333, 0.3333]))
+// v4profile(calibrate(s3221qs_edid, [0.3333, 0.3333]))
