@@ -48,6 +48,25 @@ based on DCI(P3) RGB.icc
       </XYZArrayType>
     </mediaWhitePointTag>
 
+    <!-- measured at brightness 50% -->
+    <redColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.549560546875" Y="0.246841430664" Z="0.004104614258"/>
+      </XYZArrayType>
+    </redColorantTag>
+
+    <greenColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.245910644531" Y="0.672744750977" Z="0.031463623047"/>
+      </XYZArrayType>
+    </greenColorantTag>
+
+    <blueColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.168746948242" Y="0.080398559570" Z="0.789627075195"/>
+      </XYZArrayType>
+    </blueColorantTag>
+
     <!-- DCI(P3) -->
     <!--
         - DV content color is very close to other apple devices
@@ -55,6 +74,7 @@ based on DCI(P3) RGB.icc
         - Regular use other than watching DV content is difficult.
         It's managing pretty well on Windows.
     -->
+    <!--
     <redColorantTag>
       <XYZArrayType>
         <XYZNumber X="0.486160278320" Y="0.226684570312" Z="-0.000808715820"/>
@@ -72,6 +92,7 @@ based on DCI(P3) RGB.icc
         <XYZNumber X="0.154190063477" Y="0.062988281250" Z="0.782470703125"/>
       </XYZArrayType>
     </blueColorantTag>
+    -->
 
     <!-- Alienware_AW3225QF_HDR True Black 400 -->
     <!--
@@ -79,86 +100,86 @@ based on DCI(P3) RGB.icc
         - a little green tint
     -->
     <!--
-        <redColorantTag>
-        <XYZArrayType>
+    <redColorantTag>
+      <XYZArrayType>
         <XYZNumber X="0.56462" Y="0.25060" Z="0.00395"/>
-        </XYZArrayType>
-        </redColorantTag>
+      </XYZArrayType>
+    </redColorantTag>
 
-        <greenColorantTag>
-        <XYZArrayType>
+    <greenColorantTag>
+      <XYZArrayType>
         <XYZNumber X="0.26225" Y="0.70131" Z="0.04308"/>
-        </XYZArrayType>
-        </greenColorantTag>
+      </XYZArrayType>
+    </greenColorantTag>
 
-        <blueColorantTag>
-        <XYZArrayType>
+    <blueColorantTag>
+      <XYZArrayType>
         <XYZNumber X="0.14548" Y="0.06145" Z="0.77147"/>
-        </XYZArrayType>
-        </blueColorantTag>
+      </XYZArrayType>
+    </blueColorantTag>
     -->
 
     <!-- Display P3 -->
     <!--
-        <redColorantTag>
-        <XYZArrayType>
+    <redColorantTag>
+      <XYZArrayType>
         <XYZNumber X="0.515121459961" Y="0.241195678711" Z="-0.001052856445"/>
-        </XYZArrayType>
-        </redColorantTag>
+      </XYZArrayType>
+    </redColorantTag>
 
-        <greenColorantTag>
-        <XYZArrayType>
+    <greenColorantTag>
+      <XYZArrayType>
         <XYZNumber X="0.291976928711" Y="0.692245483398" Z="0.041885375977"/>
-        </XYZArrayType>
-        </greenColorantTag>
+      </XYZArrayType>
+    </greenColorantTag>
 
-        <blueColorantTag>
-        <XYZArrayType>
+    <blueColorantTag>
+      <XYZArrayType>
         <XYZNumber X="0.157104492188" Y="0.066574096680" Z="0.784072875977"/>
-        </XYZArrayType>
-        </blueColorantTag>
+      </XYZArrayType>
+    </blueColorantTag>
     -->
 
     <!-- Alienware_AW3225QF_Native -->
     <!--
-        <redColorantTag>
-        <XYZArrayType>
+    <redColorantTag>
+      <XYZArrayType>
         <XYZNumber X="0.556152343750" Y="0.247726440430" Z="0.005020141602"/>
-        </XYZArrayType>
-        </redColorantTag>
+      </XYZArrayType>
+    </redColorantTag>
 
-        <greenColorantTag>
-        <XYZArrayType>
+    <greenColorantTag>
+      <XYZArrayType>
         <XYZNumber X="0.262603759766" Y="0.696685791016" Z="0.043716430664"/>
-        </XYZArrayType>
-        </greenColorantTag>
+      </XYZArrayType>
+    </greenColorantTag>
 
-        <blueColorantTag>
-        <XYZArrayType>
+    <blueColorantTag>
+      <XYZArrayType>
         <XYZNumber X="0.145507812500" Y="0.055572509766" Z="0.776275634766"/>
-        </XYZArrayType>
-        </blueColorantTag>
+      </XYZArrayType>
+    </blueColorantTag>
     -->
 
     <!-- Windows HDR default ? -->
     <!--
-        <redColorantTag>
-        <XYZArrayType>
+    <redColorantTag>
+      <XYZArrayType>
         <XYZNumber X="0.91383" Y="0.40590" Z="0.01196"/>
-        </XYZArrayType>
-        </redColorantTag>
+      </XYZArrayType>
+    </redColorantTag>
 
-        <greenColorantTag>
-        <XYZArrayType>
+    <greenColorantTag>
+      <XYZArrayType>
         <XYZNumber X="0.31933" Y="0.94560" Z="0.06212"/>
-        </XYZArrayType>
-        </greenColorantTag>
+      </XYZArrayType>
+    </greenColorantTag>
 
-        <blueColorantTag>
-        <XYZArrayType>
+    <blueColorantTag>
+      <XYZArrayType>
         <XYZNumber X="0.17824" Y="0.07103" Z="0.98141"/>
-        </XYZArrayType>
-        </blueColorantTag>
+      </XYZArrayType>
+    </blueColorantTag>
     -->
 
     <!-- TODO fix green tint by parametric curve -->

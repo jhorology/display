@@ -19,16 +19,28 @@ declare -A s3221qs=(
     [bounds_4k]="{0, 0, -1920, 1080}"
 )
 
+# macos auto generated
 icc_aw3225qf=/Library/ColorSync/Profiles/Displays/AW3225QF-D61FFD6E-1D7D-42D9-A314-59D2ED731496.icc
+icc_s3221qs=/Library/ColorSync/Profiles/Displays/S3221QS-BA8ED8A6-1083-4F0F-AA4C-B08CF99C1318.icc
 icc_dci_p3="/System/Library/ColorSync/Profiles/DCI(P3) RGB.icc"
 
-icc_aw3225qf_lldv="${HOME}/Library/ColorSync/Profiles/AW3225QF LLDV.icc"
-icc_aw3225qf_standard="${HOME}/Library/ColorSync/Profiles/AW3225QF Standard.icc"
+# based on EDID color gamut
 icc_aw3225qf_edid_strict_v2="${HOME}/Library/ColorSync/Profiles/AW3225QF EDID Strict v2.icc"
 icc_aw3225qf_edid_strict_v4="${HOME}/Library/ColorSync/Profiles/AW3225QF EDID Strict v4.icc"
-icc_s3221qs_standard="${HOME}/Library/ColorSync/Profiles/DELL S3221QS Standard.icc"
 icc_s3221qs_edid_strict_v2="${HOME}/Library/ColorSync/Profiles/DELL S3221QS EDID Strict v2.icc"
 icc_s3221qs_edid_strict_v4="${HOME}/Library/ColorSync/Profiles/DELL S3221QS EDID Strict v4.icc"
+
+# Calibrite
+icc_aw3225qf_calibrite="${HOME}/Library/ColorSync/Profiles/AW3225QF_Calibrite_50_2025-06-02.icc"
+icc_s3221qs_calibrite="${HOME}/Library/ColorSync/Profiles/DELL_S3221QS_Calibrite_50_2025-06-02.icc"
+
+
+# main
+icc_aw3225qf_standard="${HOME}/Library/ColorSync/Profiles/AW3225QF Standard.icc"
+icc_aw3225qf_lldv="${HOME}/Library/ColorSync/Profiles/AW3225QF LLDV.icc"
+icc_s3221qs_standard="${HOME}/Library/ColorSync/Profiles/DELL S3221QS Standard.icc"
+
+
 
 if which gdate &> /dev/null; then
     alias ts='gdate "+%Y-%m-%d %H:%M:%S.%3N"'
@@ -282,8 +294,11 @@ install() {
         local icc_name=${icc_xml%.xml}
         local icc_path="${HOME}/Library/ColorSync/Profiles/${icc_name}.icc"
         rm -f "$icc_path"
-        IccFromXml "$icc_xml" "$icc_path"
-        log "Installed: $icc_path"
+        if iccFromXml "$icc_xml" "$icc_path"; then
+            log "Installed: $icc_path"
+        else
+            error "Failed to install: $icc_xml"
+        fi
     done
 }
 

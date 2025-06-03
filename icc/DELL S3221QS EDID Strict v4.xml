@@ -36,9 +36,9 @@ Gamma 2.2
   </Header>
   <Tags>
     <profileDescriptionTag>
-      <textDescriptionType>
-        <TextData><![CDATA[DELL S3221QS EDID Strict v4]]></TextData>
-      </textDescriptionType>
+      <multiLocalizedUnicodeType>
+        <LocalizedText LanguageCountry="enUS"><![CDATA[DELL S3221QS EDID Strict v4]]></LocalizedText>
+      </multiLocalizedUnicodeType>
     </profileDescriptionTag>
 
     <PrivateTag TagSignature="dscm">
@@ -48,9 +48,9 @@ Gamma 2.2
     </PrivateTag>
 
     <copyrightTag>
-      <textType>
-        <TextData><![CDATA[SPDX-License-Identifier: MIT]]></TextData>
-      </textType>
+      <multiLocalizedUnicodeType>
+        <LocalizedText LanguageCountry="enUS"><![CDATA[SPDX-License-Identifier: MIT]]></LocalizedText>
+      </multiLocalizedUnicodeType>
     </copyrightTag>
 
     <!-- white point *v4 D50 -->
