@@ -48,7 +48,12 @@ based on DCI(P3) RGB.icc
       </XYZArrayType>
     </mediaWhitePointTag>
 
-    <!-- measured at brightness 50% -->
+    <!--
+        measured LLDV 2025-06-02
+        - brightness 50%
+        - D65 gain correction red=1.0 green=0.977 blue=0.979
+    -->
+    <!--
     <redColorantTag>
       <XYZArrayType>
         <XYZNumber X="0.549560546875" Y="0.246841430664" Z="0.004104614258"/>
@@ -66,6 +71,64 @@ based on DCI(P3) RGB.icc
         <XYZNumber X="0.168746948242" Y="0.080398559570" Z="0.789627075195"/>
       </XYZArrayType>
     </blueColorantTag>
+    -->
+
+    <!--
+        measured creator mode DCI-P3 2025-06-05
+         - brightness 50%
+         - D65 gain correction red=0.996 green=0.924 blue=1.0
+    -->
+    <luminanceTag>
+      <XYZArrayType>
+        <XYZNumber X="104.685714721680" Y="110.149749755859" Z="119.894577026367"/>
+      </XYZArrayType>
+    </luminanceTag>
+
+    <redColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.519500732422" Y="0.245285034180" Z="0.003967285156"/>
+      </XYZArrayType>
+    </redColorantTag>
+
+    <greenColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.281509399414" Y="0.685150146484" Z="0.032760620117"/>
+      </XYZArrayType>
+    </greenColorantTag>
+
+    <blueColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="0.163208007812" Y="0.069549560547" Z="0.788467407227"/>
+      </XYZArrayType>
+    </blueColorantTag>
+
+    <!--
+        function type 3
+         parameters γ, a, b, c, d
+         x < d)
+           f(x)= c * x
+         x >= d)
+           f(x)=(ax+b)γ
+    -->
+    <redTRCTag>
+      <parametricCurveType>
+        <!-- gain 0.996  a = pow(0.996, 1/2.6) -->
+        <ParametricCurve FunctionType="3">2.6 0.9984596408814284 0.0 0.0 0.0</ParametricCurve>
+      </parametricCurveType>
+    </redTRCTag>
+
+    <greenTRCTag>
+      <parametricCurveType>
+        <!-- gain 0.924  a = pow(0.924, 1/2.6) -->
+        <ParametricCurve FunctionType="3">2.6 0.9700562363055629 0.0 0.0 0.0</ParametricCurve>
+      </parametricCurveType>
+    </greenTRCTag>
+
+    <blueTRCTag>
+      <parametricCurveType>
+        <ParametricCurve FunctionType="0">2.6</ParametricCurve>
+      </parametricCurveType>
+    </blueTRCTag>
 
     <!-- DCI(P3) -->
     <!--
@@ -182,33 +245,25 @@ based on DCI(P3) RGB.icc
     </blueColorantTag>
     -->
 
-    <!-- TODO fix green tint by parametric curve -->
-    <redTRCTag>
-      <parametricCurveType>
-        <ParametricCurve FunctionType="0">2.6</ParametricCurve>
-      </parametricCurveType>
-    </redTRCTag>
-    <blueTRCTag SameAs="redTRCTag"/>
-    <greenTRCTag SameAs="redTRCTag"/>
 
 
     <!-- *chromaticAdaptationTag has no effect on LLDV mode -->
     <chromaticAdaptationTag>
       <s15Fixed16ArrayType>
         <!-- DCI(P3) -->
+        <!--
         <Array>
           1.073822021484 0.038803100586 -0.036895751953
           0.055572509766 0.963989257812 -0.014343261719
           -0.004272460938 0.005294799805 0.862777709961
         </Array>
-        <!-- Display P3 -->
-        <!--
-            <Array>
-            1.047882080078 0.022918701172 -0.050201416016
-            0.029586791992 0.990478515625 -0.017059326172
-            -0.009231567383 0.015075683594 0.751678466797
-            </Array>
         -->
+        <!-- Display P3 -->
+        <Array>
+          1.047882080078 0.022918701172 -0.050201416016
+          0.029586791992 0.990478515625 -0.017059326172
+          -0.009231567383 0.015075683594 0.751678466797
+        </Array>
       </s15Fixed16ArrayType>
     </chromaticAdaptationTag>
 
