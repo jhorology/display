@@ -22,9 +22,9 @@ based on DCI(P3) RGB.icc
       <XYZNumber X="0.964202880859" Y="1.000000000000" Z="0.824905395508"/>
     </PCSIlluminant>
 
+    <ProfileCreator>jhorology</ProfileCreator>
     <!--
-        <ProfileCreator>appl</ProfileCreator>
-        <ProfileID>A0F5A0A16132B9591839DFF3068BB15F</ProfileID>
+        <ProfileID>TODO</ProfileID>
     -->
     <ProfileCreator>jhorology</ProfileCreator>
   </Header>
@@ -49,94 +49,35 @@ based on DCI(P3) RGB.icc
     </mediaWhitePointTag>
 
     <!--
-        measured LLDV 2025-06-02
-        - brightness 50%
-        - D65 gain correction red=1.0 green=0.977 blue=0.979
-    -->
-    <!--
-    <redColorantTag>
-      <XYZArrayType>
-        <XYZNumber X="0.549560546875" Y="0.246841430664" Z="0.004104614258"/>
-      </XYZArrayType>
-    </redColorantTag>
-
-    <greenColorantTag>
-      <XYZArrayType>
-        <XYZNumber X="0.245910644531" Y="0.672744750977" Z="0.031463623047"/>
-      </XYZArrayType>
-    </greenColorantTag>
-
-    <blueColorantTag>
-      <XYZArrayType>
-        <XYZNumber X="0.168746948242" Y="0.080398559570" Z="0.789627075195"/>
-      </XYZArrayType>
-    </blueColorantTag>
-    -->
-
-    <!--
-        measured creator mode DCI-P3 2025-06-05
-         - brightness 50%
-         - D65 gain correction red=0.996 green=0.924 blue=1.0
+        measured creator DCI-P3 mode 2025-06-07
+        - brightness=100%
+        - gain correction red=0.998 green=0.890 blue=1.00
     -->
     <luminanceTag>
       <XYZArrayType>
-        <XYZNumber X="104.685714721680" Y="110.149749755859" Z="119.894577026367"/>
+        <XYZNumber X="187.405136108398" Y="197.186676025391" Z="214.631561279297"/>
       </XYZArrayType>
     </luminanceTag>
 
     <redColorantTag>
       <XYZArrayType>
-        <XYZNumber X="0.519500732422" Y="0.245285034180" Z="0.003967285156"/>
+        <XYZNumber X="0.521453857422" Y="0.247497558594" Z="0.003601074219"/>
       </XYZArrayType>
     </redColorantTag>
 
     <greenColorantTag>
       <XYZArrayType>
-        <XYZNumber X="0.281509399414" Y="0.685150146484" Z="0.032760620117"/>
+        <XYZNumber X="0.279373168945" Y="0.682632446289" Z="0.033599853516"/>
       </XYZArrayType>
     </greenColorantTag>
 
     <blueColorantTag>
       <XYZArrayType>
-        <XYZNumber X="0.163208007812" Y="0.069549560547" Z="0.788467407227"/>
+        <XYZNumber X="0.163391113281" Y="0.069854736328" Z="0.787994384766"/>
       </XYZArrayType>
     </blueColorantTag>
 
-    <!--
-        function type 3
-         parameters γ, a, b, c, d
-         x < d)
-           f(x)= c * x
-         x >= d)
-           f(x)=(ax+b)γ
-    -->
-    <redTRCTag>
-      <parametricCurveType>
-        <!-- gain 0.996  a = pow(0.996, 1/2.6) -->
-        <ParametricCurve FunctionType="3">2.6 0.9984596408814284 0.0 0.0 0.0</ParametricCurve>
-      </parametricCurveType>
-    </redTRCTag>
-
-    <greenTRCTag>
-      <parametricCurveType>
-        <!-- gain 0.924  a = pow(0.924, 1/2.6) -->
-        <ParametricCurve FunctionType="3">2.6 0.9700562363055629 0.0 0.0 0.0</ParametricCurve>
-      </parametricCurveType>
-    </greenTRCTag>
-
-    <blueTRCTag>
-      <parametricCurveType>
-        <ParametricCurve FunctionType="0">2.6</ParametricCurve>
-      </parametricCurveType>
-    </blueTRCTag>
-
     <!-- DCI(P3) -->
-    <!--
-        - DV content color is very close to other apple devices
-        - Especially the small white text have a slight green tint.
-        - Regular use other than watching DV content is difficult.
-        It's managing pretty well on Windows.
-    -->
     <!--
     <redColorantTag>
       <XYZArrayType>
@@ -153,31 +94,6 @@ based on DCI(P3) RGB.icc
     <blueColorantTag>
       <XYZArrayType>
         <XYZNumber X="0.154190063477" Y="0.062988281250" Z="0.782470703125"/>
-      </XYZArrayType>
-    </blueColorantTag>
-    -->
-
-    <!-- Alienware_AW3225QF_HDR True Black 400 -->
-    <!--
-        - color is very close to sony TV's netflix exlusive mode.
-        - a little green tint
-    -->
-    <!--
-    <redColorantTag>
-      <XYZArrayType>
-        <XYZNumber X="0.56462" Y="0.25060" Z="0.00395"/>
-      </XYZArrayType>
-    </redColorantTag>
-
-    <greenColorantTag>
-      <XYZArrayType>
-        <XYZNumber X="0.26225" Y="0.70131" Z="0.04308"/>
-      </XYZArrayType>
-    </greenColorantTag>
-
-    <blueColorantTag>
-      <XYZArrayType>
-        <XYZNumber X="0.14548" Y="0.06145" Z="0.77147"/>
       </XYZArrayType>
     </blueColorantTag>
     -->
@@ -203,27 +119,6 @@ based on DCI(P3) RGB.icc
     </blueColorantTag>
     -->
 
-    <!-- Alienware_AW3225QF_Native -->
-    <!--
-    <redColorantTag>
-      <XYZArrayType>
-        <XYZNumber X="0.556152343750" Y="0.247726440430" Z="0.005020141602"/>
-      </XYZArrayType>
-    </redColorantTag>
-
-    <greenColorantTag>
-      <XYZArrayType>
-        <XYZNumber X="0.262603759766" Y="0.696685791016" Z="0.043716430664"/>
-      </XYZArrayType>
-    </greenColorantTag>
-
-    <blueColorantTag>
-      <XYZArrayType>
-        <XYZNumber X="0.145507812500" Y="0.055572509766" Z="0.776275634766"/>
-      </XYZArrayType>
-    </blueColorantTag>
-    -->
-
     <!-- Windows HDR default ? -->
     <!--
     <redColorantTag>
@@ -245,7 +140,18 @@ based on DCI(P3) RGB.icc
     </blueColorantTag>
     -->
 
-
+    <!--
+        - Do not specify a gamma other than Function Type 0. The tone of DV content will be distorted.
+        - The Gamma value has very slight effect on the DV(HDR) content.
+        - gamma 2.6 has most natural tone, but there is a slight black crush.
+    -->
+    <redTRCTag>
+      <parametricCurveType>
+        <ParametricCurve FunctionType="0">2.4</ParametricCurve>
+      </parametricCurveType>
+    </redTRCTag>
+    <blueTRCTag SameAs="redTRCTag"/>
+    <greenTRCTag SameAs="redTRCTag"/>
 
     <!-- *chromaticAdaptationTag has no effect on LLDV mode -->
     <chromaticAdaptationTag>
@@ -266,13 +172,6 @@ based on DCI(P3) RGB.icc
         </Array>
       </s15Fixed16ArrayType>
     </chromaticAdaptationTag>
-
-    <!-- *luminanceTag has no effect on LLDV mode -->
-    <luminanceTag>
-      <XYZArrayType>
-        <XYZNumber X="400.0" Y="400.0" Z="400.0"/>
-      </XYZArrayType>
-    </luminanceTag>
 
   </Tags>
 </IccProfile>

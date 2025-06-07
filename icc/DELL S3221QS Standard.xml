@@ -51,28 +51,31 @@
       </XYZArrayType>
     </mediaWhitePointTag>
 
-    <!-- measured at brightness 50% -->
+    <!--
+        measured at brightness 65% 2025-06-06
+        gain correction red=0.936  green=0.971  blue=1.0
+    -->
     <luminanceTag>
       <XYZArrayType>
-        <XYZNumber X="122.732406616211" Y="129.138397216797" Z="140.563095092773"/>
+        <XYZNumber X="153.079528808594" Y="161.069442749023" Z="175.319076538086"/>
       </XYZArrayType>
     </luminanceTag>
 
     <redColorantTag>
       <XYZArrayType>
-        <XYZNumber X="0.482208251953" Y="0.217468261719" Z="0.005920410156"/>
+        <XYZNumber X="0.479385375977" Y="0.215820312500" Z="0.005538940430"/>
       </XYZArrayType>
     </redColorantTag>
 
     <greenColorantTag>
       <XYZArrayType>
-        <XYZNumber X="0.316055297852" Y="0.701141357422" Z="0.052886962891"/>
+        <XYZNumber X="0.318725585938" Y="0.702697753906" Z="0.053710937500"/>
       </XYZArrayType>
     </greenColorantTag>
 
     <blueColorantTag>
       <XYZArrayType>
-        <XYZNumber X="0.165954589844" Y="0.081375122070" Z="0.766403198242"/>
+        <XYZNumber X="0.166091918945" Y="0.081466674805" Z="0.765945434570"/>
       </XYZArrayType>
     </blueColorantTag>
 

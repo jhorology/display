@@ -6,6 +6,10 @@ PROJECT=$this_script:h
 cd $PROJECT
 
 # right side main screen
+# - Better Display
+#  - Enable software-based video adjustment
+#  - Use Metal for image adjustment
+#  = Disregard SDR Peak brigtness adjustment availabilty
 declare -A aw3225qf=(
   [name]="AW3225QF"
   [bounds_5k]="{0, 0, 2560, 1440}"
@@ -24,23 +28,21 @@ icc_aw3225qf=/Library/ColorSync/Profiles/Displays/AW3225QF-D61FFD6E-1D7D-42D9-A3
 icc_s3221qs=/Library/ColorSync/Profiles/Displays/S3221QS-BA8ED8A6-1083-4F0F-AA4C-B08CF99C1318.icc
 icc_dci_p3="/System/Library/ColorSync/Profiles/DCI(P3) RGB.icc"
 
-# based on EDID color gamut
-icc_aw3225qf_edid_strict_v2="${HOME}/Library/ColorSync/Profiles/AW3225QF EDID Strict v2.icc"
-icc_aw3225qf_edid_strict_v4="${HOME}/Library/ColorSync/Profiles/AW3225QF EDID Strict v4.icc"
-icc_s3221qs_edid_strict_v2="${HOME}/Library/ColorSync/Profiles/DELL S3221QS EDID Strict v2.icc"
-icc_s3221qs_edid_strict_v4="${HOME}/Library/ColorSync/Profiles/DELL S3221QS EDID Strict v4.icc"
-
 # Calibrite
-icc_aw3225qf_calibrite="${HOME}/Library/ColorSync/Profiles/AW3225QF_Calibrite_50_2025-06-02.icc"
-icc_s3221qs_calibrite="${HOME}/Library/ColorSync/Profiles/DELL_S3221QS_Calibrite_50_2025-06-02.icc"
+
+# measured at brightness 75% 2025-06-06
+# gain correction red=0.994  green=0.985  blue=1.0
+icc_aw3225qf_calibrite="${HOME}/Library/ColorSync/Profiles/AW3225QF_Calibrite_75_2025-06-06.icc"
+
+# measured at brightness 65% 2025-06-06
+# gain correction red=0.936  green=0.971  blue=1.0
+icc_s3221qs_calibrite="${HOME}/Library/ColorSync/Profiles/DELL_S3221QS_Calibrite_65_2025-06-06.icc"
 
 
 # main
 icc_aw3225qf_standard="${HOME}/Library/ColorSync/Profiles/AW3225QF Standard.icc"
 icc_aw3225qf_lldv="${HOME}/Library/ColorSync/Profiles/AW3225QF LLDV.icc"
 icc_s3221qs_standard="${HOME}/Library/ColorSync/Profiles/DELL S3221QS Standard.icc"
-
-
 
 if which gdate &> /dev/null; then
     alias ts='gdate "+%Y-%m-%d %H:%M:%S.%3N"'
@@ -50,7 +52,6 @@ fi
 
 #---------------------------------------------------
 # aw3225qf normal settings
-#   - factory settinng
 #---------------------------------------------------
 declare -A aw3225qf_normal_set_0=(
     [hdr]=off
@@ -63,10 +64,14 @@ declare -A aw3225qf_normal_set_2=(
     [colorProfileURL]="file://${icc_aw3225qf_standard// /%20}"
     [brightness]=0.75
 )
+declare -A aw3225qf_normal_set_3=(
+    [redHardwareGain]=0.99
+    [greenHardwareGain]=0.98
+    [blueHardwareGain]=1.0
+)
 
 #---------------------------------------------------
 # normal s3221qs settings
-#   - factory settinng
 #---------------------------------------------------
 declare -A s3221qs_normal_set_0=(
     [hdr]=off
@@ -81,6 +86,11 @@ declare -A s3221qs_normal_set_2=(
     [gpuDithering]=off
     [colorProfileURL]="file://${icc_s3221qs_standard// /%20}"
     [brightness]=0.65
+)
+declare -A s3221qs_normal_set_3=(
+    [redHardwareGain]=0.936
+    [greenHardwareGain]=0.971
+    [blueHardwareGain]=1.0
 )
 
 #---------------------------------------------------
@@ -98,7 +108,13 @@ declare -A aw3225qf_dolby_vision_4k_set_2=(
 )
 declare -A aw3225qf_dolby_vision_4k_set_3=(
     [colorProfileURL]="file://${icc_aw3225qf_lldv// /%20}"
-    [brightness]=1
+    [brightness]=1.0
+)
+# Fine-tuned to suit iPhone
+declare -A aw3225qf_dolby_vision_4k_set_4=(
+    [redHardwareGain]=1.0
+    [greenHardwareGain]=0.95
+    [blueHardwareGain]=1.0
 )
 
 #---------------------------------------------------
@@ -116,7 +132,13 @@ declare -A aw3225qf_dolby_vision_5k_set_2=(
 )
 declare -A aw3225qf_dolby_vision_5k_set_3=(
     [colorProfileURL]="file://${icc_aw3225qf_lldv// /%20}"
-    [brightness]=1
+    [brightness]=0.65
+)
+# Fine-tuned to suit iPhone
+declare -A aw3225qf_dolby_vision_5k_set_4=(
+    [redHardwareGain]=1.0
+    [greenHardwareGain]=0.95
+    [blueHardwareGain]=1.0
 )
 
 local netflixURL="https://www.netflix.com"
@@ -182,7 +204,7 @@ betterdisplay() {
         if (( $#args )); then
             if betterdisplaycli set -name="$display[name]" $args[*]; then
                 log "$display[name]: succeeded: betterdisplaycli set ${args[*]}"
-                $hdr_changed && sleep 1.5 || sleep 0.2
+                $hdr_changed && sleep 3 || sleep 0.5
             else
                 error "$display[name]: failed: betterdisplaycli set ${args[*]}"
             fi
