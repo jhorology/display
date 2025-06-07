@@ -62,16 +62,17 @@ declare -A aw3225qf_normal_set_1=(
 )
 declare -A aw3225qf_normal_set_2=(
     [colorProfileURL]="file://${icc_aw3225qf_standard// /%20}"
-    [brightness]=0.75
+    [brightness]=0.61
 )
+# fine-tuned white point to suit macbook
 declare -A aw3225qf_normal_set_3=(
-    [redHardwareGain]=0.99
-    [greenHardwareGain]=0.98
-    [blueHardwareGain]=1.0
+    [redHardwareGain]=0.94
+    [greenHardwareGain]=1.0
+    [blueHardwareGain]=0.98
 )
 
 #---------------------------------------------------
-# normal s3221qs settings
+# s3221qs normal settings
 #---------------------------------------------------
 declare -A s3221qs_normal_set_0=(
     [hdr]=off
@@ -85,11 +86,12 @@ declare -A s3221qs_normal_set_1=(
 declare -A s3221qs_normal_set_2=(
     [gpuDithering]=off
     [colorProfileURL]="file://${icc_s3221qs_standard// /%20}"
-    [brightness]=0.65
+    [brightness]=0.52
 )
+# fine-tuned white point to suit macbook
 declare -A s3221qs_normal_set_3=(
-    [redHardwareGain]=0.936
-    [greenHardwareGain]=0.971
+    [redHardwareGain]=0.92
+    [greenHardwareGain]=0.96
     [blueHardwareGain]=1.0
 )
 
