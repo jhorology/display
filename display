@@ -6,14 +6,22 @@ PROJECT=$this_script:h
 cd $PROJECT
 
 # right side main screen
-# - Better Display
-#  - Enable software-based video adjustment
-#  - Use Metal for image adjustment
-#  = Disregard SDR Peak brigtness adjustment availabilty
 declare -A aw3225qf=(
-  [name]="AW3225QF"
-  [bounds_5k]="{0, 0, 2560, 1440}"
-  [bounds_4k]="{0, 0, 1920, 1080}"
+    [name]="AW3225QF"
+    [bounds_5k]="{0, 0, 2560, 1440}"
+    [bounds_4k]="{0, 0, 1920, 1080}"
+    [icc_macos]="/Library/ColorSync/Profiles/Displays/AW3225QF-804B0C18-17D6-4522-87AF-FD4673AC0A3F.icc"
+
+    # measured at brightness 61% 120cd 2025-06-09
+    #  - factory setting
+    #  - standard mode
+    [icc_calibrite]="${HOME}/Library/ColorSync/Profiles/AW3225QF_Caribrite_61_120cd_2025-06-09.icc"
+    # measured at brightness 83% 120cd 2025-06-09
+    #  - factory setting
+    #  - dolby vision bright mode
+    [icc_lldv_calibrite]="${HOME}/Library/ColorSync/Profiles/AW3225QF_LLDV_Caribrite_83_120_cd_2025-06-09_2.icc"
+    [icc_standard]="${HOME}/Library/ColorSync/Profiles/AW3225QF Standard.icc"
+    [icc_lldv]="${HOME}/Library/ColorSync/Profiles/AW3225QF LLDV.icc"
 )
 
 # left side sub screen
@@ -21,28 +29,17 @@ declare -A s3221qs=(
     [name]="DELL S3221QS"
     [bounds_5k]="{0, 0, -2560, 1440}"
     [bounds_4k]="{0, 0, -1920, 1080}"
+    [icc_macos]="/Library/ColorSync/Profiles/Displays/DELL S3221QS-BA8ED8A6-1083-4F0F-AA4C-B08CF99C1318.icc"
+    # measured at brightness 46% 120cd 2025-06-09
+    #  - factory setting
+    #  - standard mode
+    [icc_calibrite]="${HOME}/Library/ColorSync/Profiles/DELL_S3221QS_Calibrite_46_120cd_2025-06-09.icc"
+    [icc_standard]="${HOME}/Library/ColorSync/Profiles/DELL S3221QS Standard.icc"
 )
 
-# macos auto generated
-icc_aw3225qf=/Library/ColorSync/Profiles/Displays/AW3225QF-D61FFD6E-1D7D-42D9-A314-59D2ED731496.icc
-icc_s3221qs=/Library/ColorSync/Profiles/Displays/S3221QS-BA8ED8A6-1083-4F0F-AA4C-B08CF99C1318.icc
 icc_dci_p3="/System/Library/ColorSync/Profiles/DCI(P3) RGB.icc"
+icc_display_p3="/System/Library/ColorSync/Profiles/Display P3.icc"
 
-# Calibrite
-
-# measured at brightness 75% 2025-06-06
-# gain correction red=0.994  green=0.985  blue=1.0
-icc_aw3225qf_calibrite="${HOME}/Library/ColorSync/Profiles/AW3225QF_Calibrite_75_2025-06-06.icc"
-
-# measured at brightness 65% 2025-06-06
-# gain correction red=0.936  green=0.971  blue=1.0
-icc_s3221qs_calibrite="${HOME}/Library/ColorSync/Profiles/DELL_S3221QS_Calibrite_65_2025-06-06.icc"
-
-
-# main
-icc_aw3225qf_standard="${HOME}/Library/ColorSync/Profiles/AW3225QF Standard.icc"
-icc_aw3225qf_lldv="${HOME}/Library/ColorSync/Profiles/AW3225QF LLDV.icc"
-icc_s3221qs_standard="${HOME}/Library/ColorSync/Profiles/DELL S3221QS Standard.icc"
 
 if which gdate &> /dev/null; then
     alias ts='gdate "+%Y-%m-%d %H:%M:%S.%3N"'
@@ -61,15 +58,15 @@ declare -A aw3225qf_normal_set_1=(
     [refreshRate]=48-240Hz
 )
 declare -A aw3225qf_normal_set_2=(
-    [colorProfileURL]="file://${icc_aw3225qf_standard// /%20}"
+    [colorProfileURL]="file://${aw3225qf[icc_standard]// /%20}"
     [brightness]=0.61
 )
 # fine-tuned white point to suit macbook
-declare -A aw3225qf_normal_set_3=(
-    [redHardwareGain]=0.94
-    [greenHardwareGain]=1.0
-    [blueHardwareGain]=0.98
-)
+# declare -A aw3225qf_normal_set_3=(
+#     [redHardwareGain]=0.94
+#     [greenHardwareGain]=1.0
+#     [blueHardwareGain]=0.98
+# )
 
 #---------------------------------------------------
 # s3221qs normal settings
@@ -85,15 +82,15 @@ declare -A s3221qs_normal_set_1=(
 # GPU dithering causes flickering
 declare -A s3221qs_normal_set_2=(
     [gpuDithering]=off
-    [colorProfileURL]="file://${icc_s3221qs_standard// /%20}"
+    [colorProfileURL]="file://${s3221qs[icc_standard]// /%20}"
     [brightness]=0.52
 )
 # fine-tuned white point to suit macbook
-declare -A s3221qs_normal_set_3=(
-    [redHardwareGain]=0.92
-    [greenHardwareGain]=0.96
-    [blueHardwareGain]=1.0
-)
+# declare -A s3221qs_normal_set_3=(
+#     [redHardwareGain]=0.92
+#     [greenHardwareGain]=0.96
+#     [blueHardwareGain]=1.0
+# )
 
 #---------------------------------------------------
 # dolby vision 4K settings
@@ -109,15 +106,15 @@ declare -A aw3225qf_dolby_vision_4k_set_2=(
     [connectionMode]=bpc:12+range:limited
 )
 declare -A aw3225qf_dolby_vision_4k_set_3=(
-    [colorProfileURL]="file://${icc_aw3225qf_lldv// /%20}"
+    [colorProfileURL]="file://${aw3225qf[icc_lldv]// /%20}"
     [brightness]=1.0
 )
 # Fine-tuned to suit iPhone
-declare -A aw3225qf_dolby_vision_4k_set_4=(
-    [redHardwareGain]=1.0
-    [greenHardwareGain]=0.95
-    [blueHardwareGain]=1.0
-)
+# declare -A aw3225qf_dolby_vision_4k_set_4=(
+#     [redHardwareGain]=1.0
+#     [greenHardwareGain]=0.95
+#     [blueHardwareGain]=1.0
+# )
 
 #---------------------------------------------------
 # dolby vision 5K settings
@@ -133,15 +130,15 @@ declare -A aw3225qf_dolby_vision_5k_set_2=(
     [connectionMode]=bpc:12+range:limited
 )
 declare -A aw3225qf_dolby_vision_5k_set_3=(
-    [colorProfileURL]="file://${icc_aw3225qf_lldv// /%20}"
+    [colorProfileURL]="file://${aw3225qf[icc_lldv]// /%20}"
     [brightness]=0.65
 )
 # Fine-tuned to suit iPhone
-declare -A aw3225qf_dolby_vision_5k_set_4=(
-    [redHardwareGain]=1.0
-    [greenHardwareGain]=0.95
-    [blueHardwareGain]=1.0
-)
+# declare -A aw3225qf_dolby_vision_5k_set_4=(
+#     [redHardwareGain]=1.0
+#     [greenHardwareGain]=0.95
+#     [blueHardwareGain]=1.0
+# )
 
 local netflixURL="https://www.netflix.com"
 
@@ -150,7 +147,8 @@ usage() {
           "" \
           "Usage:" \
           "    $this_script:t <-h|--help>             Show this help." \
-          "    $this_script:t --setup                 Install dependencies (BetterDisplay.app, betterdisplaycli)." \
+          "    $this_script:t --setup                 Install dependencies (BetterDisplay.app, betterdisplaycli, iccmax)." \
+          "    $this_script:t --data                  Output display analysis data to 'data' folder." \
           "    $this_script:t --install[=<location>]  Install utility commands to specifid location. default: ~/.local/bin" \
           ""
     exit 0
@@ -170,7 +168,46 @@ setup() {
     brew update
     brew install --cask betterdisplay
     brew install waydabber/betterdisplay/betterdisplaycli
+    brew install iccmax
     brew cleanup
+
+    # node packages
+    npm install
+}
+
+# create display analysis data
+data() {
+    cd $PROJECT
+    rm -rf temp
+    mkdir -p data
+    mkdir -p temp
+    iccToXml "$aw3225qf[icc_macos]" temp/aw3225qf_macos_icc.xml
+    iccToXml "$aw3225qf[icc_calibrite]" temp/aw3225qf_calibrite_icc.xml
+    iccToXml "$aw3225qf[icc_lldv_calibrite]" temp/aw3225qf_lldv_calibrite_icc.xml
+
+    iccToXml "$s3221qs[icc_macos]" temp/s3221qs_macos_icc.xml
+    iccToXml "$s3221qs[icc_calibrite]" temp/s3221qs_calibrite_icc.xml
+
+    extcxf temp/aw3225qf_calibrite_icc.xml temp/aw3225qf_calibrite_cxf.xml
+    extcxf temp/aw3225qf_lldv_calibrite_icc.xml temp/aw3225qf_lldv_calibrite_cxf.xml
+    extcxf temp/s3221qs_calibrite_icc.xml temp/s3221qs_calibrite_cxf.xml
+
+    echo '<plist>' > temp/aw3225qf_IOMobileFramebufferShim.xml
+    ioreg -arw0 -c IOMobileFramebufferShim | xpath -e "//dict[key[text()='DisplayAttributes']/following-sibling::dict[key[text()='ProductAttributes']/following-sibling::dict[key[text()='ProductName']/following-sibling::string[text()='AW3225QF']]]]" >> temp/aw3225qf_IOMobileFramebufferShim.xml
+    echo '</plist>' >> temp/aw3225qf_IOMobileFramebufferShim.xml
+
+    echo '<plist>' > temp/s3221qs_IOMobileFramebufferShim.xml
+    ioreg -arw0 -c IOMobileFramebufferShim | xpath -e "//dict[key[text()='DisplayAttributes']/following-sibling::dict[key[text()='ProductAttributes']/following-sibling::dict[key[text()='ProductName']/following-sibling::string[text()='DELL S3221QS']]]]" >> temp/s3221qs_IOMobileFramebufferShim.xml
+    echo '</plist>' >> temp/s3221qs_IOMobileFramebufferShim.xml
+
+    xmlplist2json temp/aw3225qf_IOMobileFramebufferShim.xml data/aw3225qf_IOMobileFramebufferShim.json
+    xmlplist2json temp/s3221qs_IOMobileFramebufferShim.xml data/s3221qs_IOMobileFramebufferShim.json
+    prettier --write 'data/*.json'
+
+    for xml in temp/*.xml; do
+        xmllint --format "$xml" --output "data/${xml:t}"
+    done
+    rm -rf temp
 }
 
 betterdisplay() {
@@ -326,15 +363,30 @@ install() {
     done
 }
 
+activate_direnv() {
+    cd $PROJECT
+    direnv allow
+    eval "$(direnv export zsh)"
+}
+
 if [[ $command == $(basename $this_script) ]]; then
     zparseopts -D -E -F -- \
                {h,-help}=help \
                -setup=setup \
+               -data=data \
                -install::=install
     if (( $#help )); then
         usage
+        return
     elif (( $#setup )); then
         setup
+        return
+    fi
+
+    activate_direnv
+
+    if (( $#data )); then
+        data
     elif (( $#install )); then
         local loc=${install##--install}
         loc=${loc##=}

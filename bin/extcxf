@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+
+const fs = require('node:fs/promises'),
+  zlib = require('node:zlib'),
+  { promisify } = require('node:util'),
+  unzip = promisify(zlib.unzip),
+  IccMaxDOM = require('../lib/iccmax-dom'),
+  errata = [
+    [
+      '<?xml?><version>1.0</version><encoding>UTF-8</encoding><cc:CxF>',
+      `<?xml version="1.0" encoding="UTF-8"?>
+<cc:CxF xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:cc="http://colorexchangeformat.com/CxF3-core"
+ xmlns:xrp="http://www.xrite.com/products/prism"
+ xmlns:calibrite="http://www.calibrite.com/profiler">`
+    ],
+    ['<xmlns:xrp>http://www.xrite.com/products/prism</xmlns:xrp>', ''],
+    ['<xmlns:cc>http://colorexchangeformat.com/CxF3-core</xmlns:cc>', ''],
+    ['<xmlns:xsi>http://www.w3.org/2001/XMLSchema-instance</xmlns:xsi>', '']
+  ]
+
+async function main() {
+  const srcFile = process.argv[2],
+    dstFile = process.argv[3],
+    dom = await IccMaxDOM.fromXmlFile(srcFile),
+    srcBuf = dom.selectBuffer('/IccProfile/Tags/CxfTag/ZIPXmlType/UnknownData').slice(8),
+    dstBuf = await unzip(srcBuf)
+  let size = dstBuf.length
+
+  if (dstBuf.readUInt8(size - 1) === 0x00) {
+    size--
+  }
+  let xml = errata.reduce((s, e) => s.replace(e[0], e[1]), dstBuf.toString('utf8', 0, size))
+  await fs.writeFile(dstFile, xml)
+}
+
+main()
+  .catch((err) => {
+    console.error(err)
+    process.exit(1)
+  })
+  .then(() => {})

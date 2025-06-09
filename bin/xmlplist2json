@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+
+const fs = require('node:fs'),
+ plist = require('plist')
+
+async function main() {
+  const srcFile = process.argv[2],
+        dstFile = process.argv[3],
+        obj =   plist.parse(fs.readFileSync(srcFile, 'utf8'))
+  fs.writeFileSync(dstFile, JSON.stringify(obj, null, 2))
+}
+
+main()
