@@ -20,7 +20,7 @@ declare -A aw3225qf=(
     #  - factory setting
     #  - dolby vision bright mode
     [icc_lldv_calibrite]="${HOME}/Library/ColorSync/Profiles/AW3225QF_LLDV_Caribrite_83_120_cd_2025-06-09_2.icc"
-    [icc_standard]="${HOME}/Library/ColorSync/Profiles/AW3225QF Standard.icc"
+    [icc_native]="${HOME}/Library/ColorSync/Profiles/AW3225QF Native.icc"
     [icc_lldv]="${HOME}/Library/ColorSync/Profiles/AW3225QF LLDV.icc"
 )
 
@@ -34,7 +34,7 @@ declare -A s3221qs=(
     #  - factory setting
     #  - standard mode
     [icc_calibrite]="${HOME}/Library/ColorSync/Profiles/DELL_S3221QS_Calibrite_46_120cd_2025-06-09.icc"
-    [icc_standard]="${HOME}/Library/ColorSync/Profiles/DELL S3221QS Standard.icc"
+    [icc_native]="${HOME}/Library/ColorSync/Profiles/S3221QS Native.icc"
 )
 
 icc_dci_p3="/System/Library/ColorSync/Profiles/DCI(P3) RGB.icc"
@@ -58,7 +58,7 @@ declare -A aw3225qf_normal_set_1=(
     [refreshRate]=48-240Hz
 )
 declare -A aw3225qf_normal_set_2=(
-    [colorProfileURL]="file://${aw3225qf[icc_macos]// /%20}"
+    [colorProfileURL]="file://${aw3225qf[icc_native]// /%20}"
     [brightness]=0.61
 )
 # fine-tuned white point to suit macbook
@@ -82,14 +82,14 @@ declare -A s3221qs_normal_set_1=(
 # GPU dithering causes flickering
 declare -A s3221qs_normal_set_2=(
     [gpuDithering]=off
-    [colorProfileURL]="file://${s3221qs[icc_macos]// /%20}"
+    [colorProfileURL]="file://${s3221qs[icc_calibrite]// /%20}"
     [brightness]=0.52
 )
-declare -A s3221qs_normal_set_3=(
-    [redHardwareGain]=0.90
-    [greenHardwareGain]=0.86
-    [blueHardwareGain]=1.0
-)
+# declare -A s3221qs_normal_set_3=(
+#     [redHardwareGain]=0.90
+#     [greenHardwareGain]=0.86
+#     [blueHardwareGain]=1.0
+# )
 
 #---------------------------------------------------
 # dolby vision 4K settings
@@ -108,11 +108,11 @@ declare -A aw3225qf_dolby_vision_4k_set_3=(
     [colorProfileURL]="file://${icc_dci_p3// /%20}"
     [brightness]=1.0
 )
-declare -A aw3225qf_dolby_vision_4k_set_4=(
-    [redHardwareGain]=1.0
-    [greenHardwareGain]=0.90
-    [blueHardwareGain]=1.0
-)
+# declare -A aw3225qf_dolby_vision_4k_set_4=(
+#     [redHardwareGain]=1.0
+#     [greenHardwareGain]=0.90
+#     [blueHardwareGain]=1.0
+# )
 
 #---------------------------------------------------
 # dolby vision 5K settings
@@ -131,11 +131,11 @@ declare -A aw3225qf_dolby_vision_5k_set_3=(
     [colorProfileURL]="file://${icc_dci_p3// /%20}"
     [brightness]=0.65
 )
-declare -A aw3225qf_dolby_vision_5k_set_4=(
-    [redHardwareGain]=1.0
-    [greenHardwareGain]=0.90
-    [blueHardwareGain]=1.0
-)
+# declare -A aw3225qf_dolby_vision_5k_set_4=(
+#     [redHardwareGain]=1.0
+#     [greenHardwareGain]=0.90
+#     [blueHardwareGain]=1.0
+# )
 
 local netflixURL="https://www.netflix.com"
 
@@ -178,6 +178,13 @@ data() {
     rm -rf temp
     mkdir -p data
     mkdir -p temp
+    local macbook_alive=false
+
+    if scp -o 'ConnectTimeout 1' "macbookair.local:/Library/ColorSync/Profiles/Displays/Color LCD-37D8832A-2D66-02CA-B9F7-8F30A301B230.icc" temp/; then
+        iccToXml "temp/Color LCD-37D8832A-2D66-02CA-B9F7-8F30A301B230.icc" temp/mba_m2_lcd_macos_icc.xml
+        macbook_alive=true
+    fi
+
     iccToXml "$aw3225qf[icc_macos]" temp/aw3225qf_macos_icc.xml
     iccToXml "$aw3225qf[icc_calibrite]" temp/aw3225qf_calibrite_icc.xml
     iccToXml "$aw3225qf[icc_lldv_calibrite]" temp/aw3225qf_lldv_calibrite_icc.xml
@@ -323,6 +330,11 @@ reset_displays() {
     betterdisplay s3221qs normal
 }
 
+generate_icc() {
+    local disp_var=$1
+    local -A display=(${(Pkv@)disp_var})
+}
+
 install() {
     local install_location=$1
     local commmands=(
@@ -346,18 +358,29 @@ install() {
         log "Installed: $install_location/$cmd"
     done
 
+    cd $PROJECT
+    rm -rf temp
+    mkdir -p temp
+    native-icc-v2 "$(whoami)" "AW3225QF Native" data/aw3225qf_macos_icc.xml "icc/AW3225QF ICC v2 Template.xml" "$PROJECT/temp"
+    native-icc-v2 "$(whoami)" "S3221QD Native" data/s3221qs_macos_icc.xml "icc/S3221QS ICC v2 Template.xml" "$PROJECT/temp"
+    native-icc-v2 "$(whoami)" "MBA M2 LCD Native" data/mba_m2_lcd_macos_icc.xml "icc/MBA M2 LCD ICC v2 Template.xml" "$PROJECT/temp"
+
     # install icc profiles
-    cd $PROJECT/icc
-    for icc_xml in *.xml; do
-        local icc_name=${icc_xml%.xml}
-        local icc_path="${HOME}/Library/ColorSync/Profiles/${icc_name}.icc"
-        rm -f "$icc_path"
-        if iccFromXml "$icc_xml" "$icc_path"; then
-            log "Installed: $icc_path"
+    for icc_xml in temp/*.xml; do
+        if iccFromXml "$icc_xml" "${icc_xml:r}.icc"; then
+            log "Converted: ${icc_xml:r}.icc"
         else
-            error "Failed to install: $icc_xml"
+            error "Failed to execute iccFromXml: $icc_xml"
         fi
     done
+
+    for icc in temp/*.icc; do
+        cp $icc ~/Library/ColorSync/Profiles
+    done
+    for icc in temp/*.icc; do
+        scp -o 'ConnectTimeout 1' $icc macbookair.local:~/Library/ColorSync/Profiles || true
+    done
+    rm -rf temp
 }
 
 activate_direnv() {

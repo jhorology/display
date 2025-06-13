@@ -3,6 +3,10 @@
 const fs = require('node:fs'),
  plist = require('plist')
 
+/**
+ * convert XML plist file to json file
+ * xmlplist2json input-file output-file
+ */
 async function main() {
   const srcFile = process.argv[2],
         dstFile = process.argv[3],
@@ -11,3 +15,8 @@ async function main() {
 }
 
 main()
+  .catch((err) => {
+    console.error(err)
+    process.exit(1)
+  })
+  .then(() => {})

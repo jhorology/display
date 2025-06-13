@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IccProfile>
+  <Header>
+    <PreferredCMMType>appl</PreferredCMMType>
+    <ProfileVersion>4.00</ProfileVersion>
+    <ProfileDeviceClass>mntr</ProfileDeviceClass>
+    <DataColourSpace>RGB </DataColourSpace>
+    <PCS>XYZ </PCS>
+    <CreationDateTime>{{creationDateTime}}</CreationDateTime>
+    <PrimaryPlatform>APPL</PrimaryPlatform>
+    <ProfileFlags EmbeddedInFile="false" UseWithEmbeddedDataOnly="false"/>
+    <DeviceManufacturer>APPL</DeviceManufacturer>
+    <DeviceAttributes ReflectiveOrTransparency="reflective" GlossyOrMatte="glossy" MediaPolarity="positive" MediaColour="colour"/>
+    <RenderingIntent>Perceptual</RenderingIntent>
+    <PCSIlluminant>
+      <XYZNumber X="0.96422" Y="1.0" Z="0.82521"/>
+    </PCSIlluminant>
+    <ProfileCreator>{{profileCreator}}</ProfileCreator>
+    <!--
+        <ProfileID>ECFDA38E388547C36DB4BD4F7ADA182F</ProfileID>
+    -->
+  </Header>
+  <Tags>
+    <profileDescriptionTag>
+      <multiLocalizedUnicodeType>
+        <LocalizedText LanguageCountry="enUS"><![CDATA[{{{profileName}}}]]></LocalizedText>
+      </multiLocalizedUnicodeType>
+    </profileDescriptionTag>
+
+    <copyrightTag>
+      <multiLocalizedUnicodeType>
+        <LocalizedText LanguageCountry="enUS"><![CDATA[Based on DIsplay P3.icc, Copyright Apple Inc., 2022]]></LocalizedText>
+      </multiLocalizedUnicodeType>
+    </copyrightTag>
+
+    <mediaWhitePointTag>
+      <XYZArrayType>
+      <XYZNumber X="0.96422" Y="1.0" Z="0.82521"/>
+      </XYZArrayType>
+    </mediaWhitePointTag>
+
+    <redColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="{{chromacity.r[0]}}" Y="{{chromacity.r[1]}}" Z="{{chromacity.r[2]}}"/>
+      </XYZArrayType>
+    </redColorantTag>
+
+    <greenColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="{{chromacity.g[0]}}" Y="{{chromacity.g[1]}}" Z="{{chromacity.g[2]}}"/>
+      </XYZArrayType>
+    </greenColorantTag>
+
+    <blueColorantTag>
+      <XYZArrayType>
+        <XYZNumber X="{{chromacity.b[0]}}" Y="{{chromacity.b[1]}}" Z="{{chromacity.b[2]}}"/>
+      </XYZArrayType>
+    </blueColorantTag>
+
+    <redTRCTag>
+      {{^redToneResponseCurve}}
+      <parametricCurveType>
+        <ParametricCurve FunctionType="3">
+          2.399993896484 0.947860717773 0.052139282227 0.077392578125 0.040451049805
+        </ParametricCurve>
+      </parametricCurveType>
+      {{/redToneResponseCurve}}
+      {{#redToneResponseCurve}}
+      {{#redToneResponseCurve.parametricCurve}}
+      <parametricCurveType>
+        <ParametricCurve FunctionType="redToneResponseCurve.parametricCurve.type">
+          {{redToneResponseCurve.parametricCurve.gamma}} {{#redToneResponseCurve.parametricCurve.params}}{{.}} {{/redToneResponseCurve.parametricCurve.params}}
+        </ParametricCurve>
+      </parametricCurveType>
+      {{/redToneResponseCurve.parametricCurve}}
+      {{#redToneResponseCurve.curve}}
+      <curveType>
+        <Curve>
+          {{#redToneResponseCurve.curve.lutLines}}
+          {{.}}
+          {{/redToneResponseCurve.curve.lutLines}}
+        </Curve>
+      </curveType>
+      {{/redToneResponseCurve.curve}}
+      {{/redToneResponseCurve}}
+    </redTRCTag>
+
+    <chromaticAdaptationTag>
+      <s15Fixed16ArrayType>
+        <Array>
+          {{chromacity.chad[0][0]}} {{chromacity.chad[0][1]}} {{chromacity.chad[0][1]}}
+          {{chromacity.chad[1][0]}} {{chromacity.chad[1][1]}} {{chromacity.chad[1][1]}}
+          {{chromacity.chad[2][0]}} {{chromacity.chad[2][1]}} {{chromacity.chad[2][1]}}
+        </Array>
+      </s15Fixed16ArrayType>
+    </chromaticAdaptationTag>
+
+    {{^greenToneResponseCurve}}
+    <greenTRCTag SameAs="redTRCTag"/>
+    {{/greenToneResponseCurve}}
+    {{#greenToneResponseCurve}}
+    <greenTRCTag>
+      {{#greenToneResponseCurve.parametricCurve}}
+      <parametricCurveType>
+        <ParametricCurve FunctionType="greenToneResponseCurve.parametricCurve.type">
+          {{greenToneResponseCurve.parametricCurve.gamma}} {{#greenToneResponseCurve.parametricCurve.params}}{{.}} {{/greenToneResponseCurve.parametricCurve.params}}
+        </ParametricCurve>
+      </parametricCurveType>
+      {{/greenToneResponseCurve.parametricCurve}}
+      {{#greenToneResponseCurve.curve}}
+      <curveType>
+        <Curve>
+          {{#greenToneResponseCurve.curve.lutLines}}
+          {{.}}
+          {{/greenToneResponseCurve.curve.lutLines}}
+        </Curve>
+      </curveType>
+      {{/greenToneResponseCurve.curve}}
+    </greenTRCTag>
+    {{/greenToneResponseCurve}}
+
+    {{^blueToneResponseCurve}}
+    <blueTRCTag SameAs="redTRCTag"/>
+    {{/blueToneResponseCurve}}
+    {{#blueToneResponseCurve}}
+    <blueTRCTag>
+      {{#blueToneResponseCurve.parametricCurve}}
+      <parametricCurveType>
+        <ParametricCurve FunctionType="blueToneResponseCurve.parametricCurve.type">
+          {{blueToneResponseCurve.parametricCurve.gamma}} {{#blueToneResponseCurve.parametricCurve.params}}{{.}} {{/blueToneResponseCurve.parametricCurve.params}}
+        </ParametricCurve>
+      </parametricCurveType>
+      {{/blueToneResponseCurve.parametricCurve}}
+      {{#blueToneResponseCurve.curve}}
+      <curveType>
+        <Curve>
+          {{#blueToneResponseCurve.curve.lutLines}}
+          {{.}}
+          {{/blueToneResponseCurve.curve.lutLines}}
+        </Curve>
+      </curveType>
+      {{/blueToneResponseCurve.curve}}
+    </blueTRCTag>
+    {{/blueToneResponseCurve}}
+
+    <!--
+        Gamma correction and gain correction will be necessary in the future.
+        Confirm that it is also valid in v4
+    -->
+    {{#vcgt}}
+    <PrivateTag TagSignature="vcgt">
+      <PrivateType type="vcgt">
+        <UnknownData>
+          {{#vcgt.hexLines}}
+          {{.}}
+          {{/vcgt.hexLines}}
+        </UnknownData>
+      </PrivateType>
+    </PrivateTag>
+    {{/vcgt}}
+  </Tags>
+</IccProfile>
