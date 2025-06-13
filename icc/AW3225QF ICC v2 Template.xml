@@ -39,27 +39,39 @@
 
     <mediaWhitePointTag>
       <XYZArrayType>
-        <XYZNumber X="{{chromacity.w.0}}" Y="{{chromacity.w.1}}" Z="{{chromacity.w.2}}"/>
+        <XYZNumber X="{{chromaticity.w.0}}" Y="{{chromaticity.w.1}}" Z="{{chromaticity.w.2}}"/>
       </XYZArrayType>
     </mediaWhitePointTag>
 
     <redColorantTag>
       <XYZArrayType>
-        <XYZNumber X="{{chromacity.r.0}}" Y="{{chromacity.r.1}}" Z="{{chromacity.r.2}}"/>
+        <XYZNumber X="{{chromaticity.r.0}}" Y="{{chromaticity.r.1}}" Z="{{chromaticity.r.2}}"/>
       </XYZArrayType>
     </redColorantTag>
 
     <greenColorantTag>
       <XYZArrayType>
-        <XYZNumber X="{{chromacity.g.0}}" Y="{{chromacity.g.1}}" Z="{{chromacity.g.2}}"/>
+        <XYZNumber X="{{chromaticity.g.0}}" Y="{{chromaticity.g.1}}" Z="{{chromaticity.g.2}}"/>
       </XYZArrayType>
     </greenColorantTag>
 
     <blueColorantTag>
       <XYZArrayType>
-        <XYZNumber X="{{chromacity.b.0}}" Y="{{chromacity.b.1}}" Z="{{chromacity.b.2}}"/>
+        <XYZNumber X="{{chromaticity.b.0}}" Y="{{chromaticity.b.1}}" Z="{{chromaticity.b.2}}"/>
       </XYZArrayType>
     </blueColorantTag>
+
+    {{#chromaticity.chad.length}}
+    <chromaticAdaptationTag>
+      <s15Fixed16ArrayType>
+        <Array>
+          {{chromaticity.chad.0.0}} {{chromaticity.chad.0.1}} {{chromaticity.chad.0.2}}
+          {{chromaticity.chad.1.0}} {{chromaticity.chad.1.1}} {{chromaticity.chad.1.2}}
+          {{chromaticity.chad.2.0}} {{chromaticity.chad.2.1}} {{chromaticity.chad.2.2}}
+        </Array>
+      </s15Fixed16ArrayType>
+    </chromaticAdaptationTag>
+    {{/chromaticity.chad.length}}
 
     <redTRCTag>
       <curveType>

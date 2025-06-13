@@ -41,21 +41,31 @@
 
     <redColorantTag>
       <XYZArrayType>
-        <XYZNumber X="{{chromacity.r[0]}}" Y="{{chromacity.r[1]}}" Z="{{chromacity.r[2]}}"/>
+        <XYZNumber X="{{chromaticity.r.0}}" Y="{{chromaticity.r.1}}" Z="{{chromaticity.r.2}}"/>
       </XYZArrayType>
     </redColorantTag>
 
     <greenColorantTag>
       <XYZArrayType>
-        <XYZNumber X="{{chromacity.g[0]}}" Y="{{chromacity.g[1]}}" Z="{{chromacity.g[2]}}"/>
+        <XYZNumber X="{{chromaticity.g.0}}" Y="{{chromaticity.g.1}}" Z="{{chromaticity.g.2}}"/>
       </XYZArrayType>
     </greenColorantTag>
 
     <blueColorantTag>
       <XYZArrayType>
-        <XYZNumber X="{{chromacity.b[0]}}" Y="{{chromacity.b[1]}}" Z="{{chromacity.b[2]}}"/>
+        <XYZNumber X="{{chromaticity.b.0}}" Y="{{chromaticity.b.1}}" Z="{{chromaticity.b.2}}"/>
       </XYZArrayType>
     </blueColorantTag>
+
+    <chromaticAdaptationTag>
+      <s15Fixed16ArrayType>
+        <Array>
+          {{chromaticity.chad.0.0}} {{chromaticity.chad.0.1}} {{chromaticity.chad.0.2}}
+          {{chromaticity.chad.1.0}} {{chromaticity.chad.1.1}} {{chromaticity.chad.1.2}}
+          {{chromaticity.chad.2.0}} {{chromaticity.chad.2.1}} {{chromaticity.chad.2.2}}
+        </Array>
+      </s15Fixed16ArrayType>
+    </chromaticAdaptationTag>
 
     <redTRCTag>
       {{^redToneResponseCurve}}
@@ -68,32 +78,22 @@
       {{#redToneResponseCurve}}
       {{#redToneResponseCurve.parametricCurve}}
       <parametricCurveType>
-        <ParametricCurve FunctionType="redToneResponseCurve.parametricCurve.type">
+        <ParametricCurve FunctionType="{{redToneResponseCurve.parametricCurve.type}}">
           {{redToneResponseCurve.parametricCurve.gamma}} {{#redToneResponseCurve.parametricCurve.params}}{{.}} {{/redToneResponseCurve.parametricCurve.params}}
         </ParametricCurve>
       </parametricCurveType>
       {{/redToneResponseCurve.parametricCurve}}
-      {{#redToneResponseCurve.curve}}
+      {{#redToneResponseCurve.curve.length}}
       <curveType>
         <Curve>
-          {{#redToneResponseCurve.curve.lutLines}}
+          {{#redToneResponseCurve.curve}}
           {{.}}
-          {{/redToneResponseCurve.curve.lutLines}}
+          {{/redToneResponseCurve.curve}}
         </Curve>
       </curveType>
-      {{/redToneResponseCurve.curve}}
+      {{/redToneResponseCurve.curve.length}}
       {{/redToneResponseCurve}}
     </redTRCTag>
-
-    <chromaticAdaptationTag>
-      <s15Fixed16ArrayType>
-        <Array>
-          {{chromacity.chad[0][0]}} {{chromacity.chad[0][1]}} {{chromacity.chad[0][1]}}
-          {{chromacity.chad[1][0]}} {{chromacity.chad[1][1]}} {{chromacity.chad[1][1]}}
-          {{chromacity.chad[2][0]}} {{chromacity.chad[2][1]}} {{chromacity.chad[2][1]}}
-        </Array>
-      </s15Fixed16ArrayType>
-    </chromaticAdaptationTag>
 
     {{^greenToneResponseCurve}}
     <greenTRCTag SameAs="redTRCTag"/>
@@ -102,20 +102,20 @@
     <greenTRCTag>
       {{#greenToneResponseCurve.parametricCurve}}
       <parametricCurveType>
-        <ParametricCurve FunctionType="greenToneResponseCurve.parametricCurve.type">
+        <ParametricCurve FunctionType="{{greenToneResponseCurve.parametricCurve.type}}">
           {{greenToneResponseCurve.parametricCurve.gamma}} {{#greenToneResponseCurve.parametricCurve.params}}{{.}} {{/greenToneResponseCurve.parametricCurve.params}}
         </ParametricCurve>
       </parametricCurveType>
       {{/greenToneResponseCurve.parametricCurve}}
-      {{#greenToneResponseCurve.curve}}
+      {{#greenToneResponseCurve.curve.length}}
       <curveType>
         <Curve>
-          {{#greenToneResponseCurve.curve.lutLines}}
+          {{#greenToneResponseCurve.curve}}
           {{.}}
-          {{/greenToneResponseCurve.curve.lutLines}}
+          {{/greenToneResponseCurve.curve}}
         </Curve>
       </curveType>
-      {{/greenToneResponseCurve.curve}}
+      {{/greenToneResponseCurve.curve.length}}
     </greenTRCTag>
     {{/greenToneResponseCurve}}
 
@@ -126,37 +126,37 @@
     <blueTRCTag>
       {{#blueToneResponseCurve.parametricCurve}}
       <parametricCurveType>
-        <ParametricCurve FunctionType="blueToneResponseCurve.parametricCurve.type">
+        <ParametricCurve FunctionType="{{blueToneResponseCurve.parametricCurve.type}}">
           {{blueToneResponseCurve.parametricCurve.gamma}} {{#blueToneResponseCurve.parametricCurve.params}}{{.}} {{/blueToneResponseCurve.parametricCurve.params}}
         </ParametricCurve>
       </parametricCurveType>
       {{/blueToneResponseCurve.parametricCurve}}
-      {{#blueToneResponseCurve.curve}}
+      {{#blueToneResponseCurve.curve.length}}
       <curveType>
         <Curve>
-          {{#blueToneResponseCurve.curve.lutLines}}
+          {{#blueToneResponseCurve.curve}}
           {{.}}
-          {{/blueToneResponseCurve.curve.lutLines}}
+          {{/blueToneResponseCurve.curve}}
         </Curve>
       </curveType>
-      {{/blueToneResponseCurve.curve}}
+      {{/blueToneResponseCurve.curve.length}}
     </blueTRCTag>
     {{/blueToneResponseCurve}}
 
-    <!--
+    {{!
         Gamma correction and gain correction will be necessary in the future.
         Confirm that it is also valid in v4
-    -->
-    {{#vcgt}}
+    }}
+    {{#vcgt.length}}
     <PrivateTag TagSignature="vcgt">
       <PrivateType type="vcgt">
         <UnknownData>
-          {{#vcgt.hexLines}}
+          {{#vcgt}}
           {{.}}
-          {{/vcgt.hexLines}}
+          {{/vcgt}}
         </UnknownData>
       </PrivateType>
     </PrivateTag>
-    {{/vcgt}}
+    {{/vcgt.length}}
   </Tags>
 </IccProfile>

@@ -185,6 +185,10 @@ data() {
         macbook_alive=true
     fi
 
+    iccToXml "/System/Library/ColorSync/Profiles/Display P3.icc" "temp/Display P3.xml"
+
+    iccToXml ~/Library/ColorSync/Profiles/linear-mac.icc temp/calibrite_liner_mac.xml
+
     iccToXml "$aw3225qf[icc_macos]" temp/aw3225qf_macos_icc.xml
     iccToXml "$aw3225qf[icc_calibrite]" temp/aw3225qf_calibrite_icc.xml
     iccToXml "$aw3225qf[icc_lldv_calibrite]" temp/aw3225qf_lldv_calibrite_icc.xml
@@ -361,9 +365,14 @@ install() {
     cd $PROJECT
     rm -rf temp
     mkdir -p temp
+
     native-icc-v2 "$(whoami)" "AW3225QF Native" data/aw3225qf_macos_icc.xml "icc/AW3225QF ICC v2 Template.xml" "$PROJECT/temp"
-    native-icc-v2 "$(whoami)" "S3221QD Native" data/s3221qs_macos_icc.xml "icc/S3221QS ICC v2 Template.xml" "$PROJECT/temp"
+    native-icc-v2 "$(whoami)" "S3221QS Native" data/s3221qs_macos_icc.xml "icc/S3221QS ICC v2 Template.xml" "$PROJECT/temp"
     native-icc-v2 "$(whoami)" "MBA M2 LCD Native" data/mba_m2_lcd_macos_icc.xml "icc/MBA M2 LCD ICC v2 Template.xml" "$PROJECT/temp"
+
+    cat02-icc-v4 "$(whoami)" "AW3225QF CAT02" data/aw3225qf_macos_icc.xml "icc/ICC v4 Template.xml" "$PROJECT/temp"
+    cat02-icc-v4 "$(whoami)" "S3221QS CAT02" data/s3221qs_macos_icc.xml "icc/ICC v4 Template.xml" "$PROJECT/temp"
+    cat02-icc-v4 "$(whoami)" "MBA M2 LCD CAT02" data/mba_m2_lcd_macos_icc.xml "icc/ICC v4 Template.xml" "$PROJECT/temp"
 
     # install icc profiles
     for icc_xml in temp/*.xml; do
