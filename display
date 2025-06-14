@@ -20,7 +20,7 @@ declare -A aw3225qf=(
     #  - factory setting
     #  - dolby vision bright mode
     [icc_lldv_calibrite]="${HOME}/Library/ColorSync/Profiles/AW3225QF_LLDV_Caribrite_83_120_cd_2025-06-09_2.icc"
-    [icc_native]="${HOME}/Library/ColorSync/Profiles/AW3225QF Native.icc"
+    [icc_default]="${HOME}/Library/ColorSync/Profiles/AW3225QF CAT02.icc"
     [icc_lldv]="${HOME}/Library/ColorSync/Profiles/AW3225QF LLDV.icc"
 )
 
@@ -34,7 +34,7 @@ declare -A s3221qs=(
     #  - factory setting
     #  - standard mode
     [icc_calibrite]="${HOME}/Library/ColorSync/Profiles/DELL_S3221QS_Calibrite_46_120cd_2025-06-09.icc"
-    [icc_native]="${HOME}/Library/ColorSync/Profiles/S3221QS Native.icc"
+    [icc_default]="${HOME}/Library/ColorSync/Profiles/S3221QS CAT02.icc"
 )
 
 icc_dci_p3="/System/Library/ColorSync/Profiles/DCI(P3) RGB.icc"
@@ -59,7 +59,7 @@ declare -A aw3225qf_normal_set_1=(
     [refreshRate]=120Hz
 )
 declare -A aw3225qf_normal_set_2=(
-    [colorProfileURL]="file://${aw3225qf[icc_native]// /%20}"
+    [colorProfileURL]="file://${aw3225qf[icc_default]// /%20}"
     [brightness]=0.61
 )
 # fine-tuned white point to suit macbook
@@ -83,7 +83,7 @@ declare -A s3221qs_normal_set_1=(
 # GPU dithering causes flickering
 declare -A s3221qs_normal_set_2=(
     [gpuDithering]=off
-    [colorProfileURL]="file://${s3221qs[icc_calibrite]// /%20}"
+    [colorProfileURL]="file://${s3221qs[icc_default]// /%20}"
     [brightness]=0.52
 )
 # declare -A s3221qs_normal_set_3=(
