@@ -143,9 +143,7 @@
           63370 63513 63656 63800 63943 64087 64231 64375 64519 64664 64809 64954 65099 65244 65389 65535
           {{/redToneResponseCurve}}
           {{#redToneResponseCurve}}
-          {{#redToneResponseCurve.curve.lutLines}}
           {{.}}
-          {{/redToneResponseCurve.curve.lutLines}}
           {{/redToneResponseCurve}}
         </Curve>
       </curveType>
