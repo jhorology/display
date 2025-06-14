@@ -4,28 +4,29 @@ const fs = require('node:fs/promises'),
   path = require('node:path'),
   math = require('mathjs'),
   IccMaxDOM = require('../lib/iccmax-dom'),
+  fp = require('../lib/fp'),
   { toS15F16UInt32, fromS15F16UInt32 } = require('../lib/fp'),
   { decode_ndin } = require('../lib/icc-private-tags'),
-  { xyzChromaticity, chromaticAdapt, createChromaticAdaption } = require('../lib/display-icc'),
-  test_files = ['aw3225qf_macos_icc.xml', 'aw3225qf_macos_icc.xml', 'mba_m2_lcd_macos_icc.xml'],
-  r = (v) => fromS15F16UInt32(toS15F16UInt32(v)),
-  BRADFORD_TRANSFORM = [
-    [0.8951, 0.2664, -0.1614],
-    [-0.7502, 1.7135, 0.0367],
-    [0.0389, -0.0685, 1.0296]
-  ]
-
-function round(v) {
-  fromS15F16UInt32(toS15F16UInt32(v))
-}
+  {
+    xyzChromaticity,
+    chromaticAdaptBradford,
+    createLut,
+    createMacDefaultLut
+  } = require('../lib/display-icc'),
+  CIE_D50_WHITE = [0.96422, 1, 0.82521],
+  // test_files = ['aw3225qf_macos_icc.xml', 'aw3225qf_macos_icc.xml', 'mba_m2_lcd_macos_icc.xml'],
+  test_files = ['aw3225qf_macos_icc.xml'],
+  r = (v) => fromS15F16UInt32(toS15F16UInt32(v))
 
 async function display_p3() {
   const icc_xml_file = path.join(__dirname, '..', 'data', 'Display P3.xml'),
     icc = await IccMaxDOM.fromXmlFile(icc_xml_file)
+  console.log(icc.selectToneResponseCurve('r'))
   return {
     pcs_w: icc.selectHeader().PCSIlluminant,
     chromaticity: icc.selectDisplayChromaticity(),
-    chad: icc.selectChromaticAdaption()
+    chad: icc.selectChromaticAdaption(),
+    trc: icc.selectToneResponseCurve('r')
   }
 }
 
@@ -35,15 +36,69 @@ async function simulate(file, p3) {
     ndin = decode_ndin(icc.selectPrivateTagData('ndin'), true),
     pcs_w = icc.selectHeader().PCSIlluminant,
     native_chromaticity = xyzChromaticity(ndin),
-    display_chromaticity = icc.selectDisplayChromaticity()
+    // to S15Fixed16Number Signed-Integer
+    target_chromaticity = fp.toS15F16Int32(icc.selectDisplayChromaticity()),
+    chromaticity_tests = [],
+    chromaticity_test = (test, fn) => {
+      const c = fn(native_chromaticity),
+        rc = fp.toS15F16Int32(c) // to S15Fixed16Number Signed-Integer
+      chromaticity_tests.push({
+        test,
+        c,
+        diff: {
+          w: math.subtract(rc.w, target_chromaticity.w),
+          r: math.subtract(rc.r, target_chromaticity.r),
+          g: math.subtract(rc.g, target_chromaticity.g),
+          b: math.subtract(rc.b, target_chromaticity.b)
+        }
+      })
+    },
+    target_trc = icc.selectToneResponseCurve('r'),
+    trc_tests = [],
+    trc_test = (test, fn) => {
+      const trc = fn()
+      trc_tests.push({
+        test,
+        diff_points: math
+          .subtract(trc, target_trc)
+          .map((d, i) => ({ i, d }))
+          .filter((p) => p.d !== 0)
+          .map((p) => ({ i: p.i, x: p.i / 0x3ff, d: p.d }))
+      })
+    }
 
-  return
+  chromaticity_test('Bradford + native white -> CIE D50', (n) =>
+    chromaticAdaptBradford(n, CIE_D50_WHITE)
+  )
+
+  chromaticity_test('Bradford + native white -> Display P3 D50', (n) =>
+    chromaticAdaptBradford(n, p3.chromaticity.w)
+  )
+  chromaticity_test('Bradford + native white -> Display P3 PCS White', (n) =>
+    chromaticAdaptBradford(n, p3.pcs_w)
+  )
+  chromaticity_test('Display P3 D65 -> D50 Transform', (n) => ({
+    w: math.multiply(p3.chad, n.w),
+    r: math.multiply(p3.chad, n.r),
+    g: math.multiply(p3.chad, n.g),
+    b: math.multiply(p3.chad, n.b)
+  }))
+
+  trc_test('Display P3 Parametric Curve', () => createLut(p3.trc))
+
+  trc_test('Fine-Tuned Parametric Curve', () => createMacDefaultLut())
+
+  return {
+    file,
+    chromaticity_tests,
+    trc_tests
+  }
 }
 
 async function main() {
   const p3 = await display_p3()
-  const results = await Promise.all(test_files.map((f) => simulate(f, p3)))
-  console.log(results)
+  const results = await Promise.all(test_files.map(async (f) => await simulate(f, p3)))
+  console.log(JSON.stringify(results, null, 2))
 }
 
 main()

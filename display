@@ -55,7 +55,8 @@ declare -A aw3225qf_normal_set_0=(
 )
 declare -A aw3225qf_normal_set_1=(
     [resolution]=2560x1440
-    [refreshRate]=48-240Hz
+    # [refreshRate]=48-240Hz
+    [refreshRate]=120Hz
 )
 declare -A aw3225qf_normal_set_2=(
     [colorProfileURL]="file://${aw3225qf[icc_native]// /%20}"
@@ -188,6 +189,10 @@ data() {
     iccToXml "/System/Library/ColorSync/Profiles/Display P3.icc" "temp/Display P3.xml"
 
     iccToXml ~/Library/ColorSync/Profiles/linear-mac.icc temp/calibrite_liner_mac.xml
+
+    # DELL display profiles included windows driver
+    iccToXml ~/Library/ColorSync/Profiles/Alienware_AW3225QF_Native.icm temp/aw3225qf_dell_icm.xml
+    iccToXml ~/Library/ColorSync/Profiles/Alienware_AW3225QF_HDR\ True\ Black\ 400.icm temp/aw3225qf_hdr400_dell_icm.xml
 
     iccToXml "$aw3225qf[icc_macos]" temp/aw3225qf_macos_icc.xml
     iccToXml "$aw3225qf[icc_calibrite]" temp/aw3225qf_calibrite_icc.xml

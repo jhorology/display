@@ -1,0 +1,60 @@
+#!/usr/bin/env node
+
+const fs = require('node:fs/promises'),
+  path = require('node:path'),
+  math = require('mathjs'),
+  IccMaxDOM = require('../lib/iccmax-dom'),
+  fp = require('../lib/fp'),
+  { toS15F16UInt32, fromS15F16UInt32 } = require('../lib/fp'),
+  { decode_ndin } = require('../lib/icc-private-tags'),
+  {
+    xyzChromaticity,
+    chromaticAdaptBradford,
+    createLut,
+    createDellDefaultLut
+  } = require('../lib/display-icc'),
+  r = (v) => fromS15F16UInt32(toS15F16UInt32(v))
+
+async function simulate(file) {
+  const icc_xml_file = path.join(__dirname, '..', 'data', file),
+    icc = await IccMaxDOM.fromXmlFile(icc_xml_file),
+    target_trc = icc.selectToneResponseCurve('r'),
+    green_trc = icc.selectToneResponseCurve('g'),
+    blue_trc = icc.selectToneResponseCurve('b'),
+    trc_tests = [],
+    trc_test = (test, fn) => {
+      const trc = fn()
+      trc_tests.push({
+        test,
+        diff_points: math
+          .subtract(trc, target_trc)
+          .map((d, i) => ({ i, d }))
+          .filter((p) => p.d !== 0)
+          .map((p) => ({ i: p.i, x: p.i / 0x3ff, d: p.d }))
+          .slice(0, 128)
+      })
+    }
+
+  trc_test('red == green ?', () => green_trc)
+  trc_test('red == blue ?', () => green_trc)
+  trc_test('Gamma = 2.2 Curve', () => createLut({ type: 0, gamma: 2.2 }))
+  trc_test('Fine-Tuned Parametric Curve', () => createDellDefaultLut())
+
+  return {
+    file,
+    trc_tests
+  }
+}
+
+async function main() {
+  const test_files = ['aw3225qf_dell_icm.xml'],
+    results = await Promise.all(test_files.map(async (f) => await simulate(f)))
+  console.log(JSON.stringify(results, null, 2))
+}
+
+main()
+  .catch((err) => {
+    console.error(err)
+    process.exit(1)
+  })
+  .then(() => {})
