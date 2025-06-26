@@ -5,7 +5,7 @@ const fs = require('node:fs/promises'),
   math = require('mathjs'),
   IccMaxDOM = require('../lib/iccmax-dom'),
   fp = require('../lib/fp'),
-  { xy2, uv2, xyz2, uv2cct } = require('../lib/cct'),
+  { xy2, uv2, xyz2, uv2cct, uv2cct_jis, cct2uv } = require('../lib/cct'),
   { decode_ndin } = require('../lib/icc-private-tags'),
   {
     xyzChromaticity,
@@ -72,10 +72,40 @@ async function test(t) {
   //
   // Try convtering the white point keeping the UV deviation
   //
-  console.log('native white', xy2(src.ndin.w))
-  console.log('native CCT', uv2cct(xy2(src.ndin.w).uv))
-  console.log('target white', xyz2(target.chroma.w))
-  console.log('target CCT', uv2cct(xyz2(target.chroma.w).uv))
+  const { cct: native_cct, duv: native_duv } = uv2cct(xy2(src.ndin.w).uv),
+    { cct: native_cct_jis, duv: native_duv_jis } = uv2cct_jis(xy2(src.ndin.w).uv),
+    native_cct_offset = native_cct - 6500,
+    native_cct_offset_jis = native_cct_jis - 6500,
+    hint_cct_offset = t.hint - 6500
+  console.log('PCS CCT calc', uv2cct(xyz2(DISPLAY_PCS_D50_WHITE).uv))
+  console.log('native CCT calc', uv2cct(xy2(src.ndin.w).uv))
+  console.log('target CCT calc', uv2cct(xyz2(target.chroma.w).uv))
+  console.log('native CCT calc JIS', uv2cct_jis(xy2(src.ndin.w).uv))
+  console.log('target CCT calc JIS', uv2cct_jis(xyz2(target.chroma.w).uv))
+  // printXYZ('sim 1 duv=0', target.chroma.w, cct2uv(t.k, 0).xyz)
+  printXYZ('sim 2 duv=native_duv', target.chroma.w, cct2uv(t.k, native_duv).xyz)
+  printXYZ(
+    'sim 3 duv=native_duv + cct_offset',
+    target.chroma.w,
+    cct2uv(t.k + native_cct_offset, native_duv).xyz
+  )
+  // printXYZ('sim 4 duv=native_duv_jis', target.chroma.w, cct2uv(t.k, native_duv_jis).xyz)
+  // printXYZ(
+  //   'sim 5 duv=native_duv_jis + cct_offset_jis',
+  //   target.chroma.w,
+  //   cct2uv(t.k + native_cct_offset_jis, native_duv_jis).xyz
+  // )
+
+  // printXYZ(
+  //   'test 1 duv=native_duv + hint_cct_offset',
+  //   target.chroma.w,
+  //   cct2uv(t.k + hint_cct_offset, native_duv_k).xyz
+  // )
+  // printXYZ(
+  //   'test 2 duv=native_duv_jis + hint_cct_offset',
+  //   target.chroma.w,
+  //   cct2uv(t.k + hint_cct_offset, native_duv_jis).xyz
+  // )
 }
 
 async function main() {
@@ -87,9 +117,9 @@ async function main() {
       { k: 7000, src: 'aw3225qf_macos_icc.xml', target: 'aw3225qf_d70_macos_icc.xml', hint: 6509 },
       { k: 8000, src: 'aw3225qf_macos_icc.xml', target: 'aw3225qf_d80_macos_icc.xml', hint: 6509 },
       { k: 9000, src: 'aw3225qf_macos_icc.xml', target: 'aw3225qf_d90_macos_icc.xml', hint: 6509 },
-      { k: 9300, src: 'aw3225qf_macos_icc.xml', target: 'aw3225qf_d93_macos_icc.xml', hint: 6509 }
-      //      { k: 5000, src: 's3221qs_macos_icc.xml', target: 's3221qs_d50_macos_icc.xml', hint: 6479 }
-      // { k: 6500, src: 's3221qs_macos_icc.xml', target: 's3221qs_d65_macos_icc.xml', hint: 6479 }
+      { k: 9300, src: 'aw3225qf_macos_icc.xml', target: 'aw3225qf_d93_macos_icc.xml', hint: 6509 },
+      { k: 5000, src: 's3221qs_macos_icc.xml', target: 's3221qs_d50_macos_icc.xml', hint: 6479 },
+      { k: 6500, src: 's3221qs_macos_icc.xml', target: 's3221qs_d65_macos_icc.xml', hint: 6479 }
     ],
     results = await Promise.all(tests.map(async (t) => await test(t)))
   // console.log(JSON.stringify(results, null, 2))
