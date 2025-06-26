@@ -22,17 +22,17 @@
     "deep-equal": "^2.2.3",
     "hogan.js": "^3.0.2",
     "mathjs": "^14.5.2",
-    "node": "^22.16.0",
+    "node": "^24.2.0",
     "plist": "^3.1.0",
     "xpath": "^0.0.34"
   },
   "devDependencies": {
     "@prettier/plugin-xml": "^3.4.1",
-    "eslint": "^9.28.0",
+    "eslint": "^9.29.0",
     "eslint-config": "^0.3.0",
     "eslint-config-node": "^4.1.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-node": "^11.1.0",
-    "prettier": "^3.5.3"
+    "prettier": "^3.6.0"
   }
 }
