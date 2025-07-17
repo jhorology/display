@@ -20,7 +20,7 @@ declare -A aw3225qf=(
     #  - factory setting
     #  - dolby vision bright mode
     [icc_lldv_calibrite]="${HOME}/Library/ColorSync/Profiles/AW3225QF_LLDV_Caribrite_83_120_cd_2025-06-09_2.icc"
-    [icc_default]="${HOME}/Library/ColorSync/Profiles/AW3225QF CAT02.icc"
+    [icc_default]="${HOME}/Library/ColorSync/Profiles/AW3225QF D65.icc"
     [icc_lldv]="${HOME}/Library/ColorSync/Profiles/AW3225QF LLDV.icc"
 )
 
@@ -34,7 +34,7 @@ declare -A s3221qs=(
     #  - factory setting
     #  - standard mode
     [icc_calibrite]="${HOME}/Library/ColorSync/Profiles/DELL_S3221QS_Calibrite_46_120cd_2025-06-09.icc"
-    [icc_default]="${HOME}/Library/ColorSync/Profiles/S3221QS CAT02.icc"
+    [icc_default]="${HOME}/Library/ColorSync/Profiles/DELL S3221QS D65.icc"
 )
 
 icc_dci_p3="/System/Library/ColorSync/Profiles/DCI(P3) RGB.icc"
