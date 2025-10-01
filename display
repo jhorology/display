@@ -267,7 +267,7 @@ betterdisplay() {
         if (( $#args )); then
             if betterdisplaycli set -name="$display[name]" $args[*]; then
                 log "$display[name]: succeeded: betterdisplaycli set ${args[*]}"
-                $hdr_changed && sleep 3 || sleep 0.5
+                $hdr_changed && sleep 3 || sleep 2
             else
                 error "$display[name]: failed: betterdisplaycli set ${args[*]}"
             fi
