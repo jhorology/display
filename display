@@ -15,12 +15,13 @@ declare -A aw3225qf=(
     # measured at brightness 61% 120cd 2025-06-09
     #  - factory setting
     #  - standard mode
-    [icc_calibrite]="${HOME}/Library/ColorSync/Profiles/AW3225QF_Caribrite_61_120cd_2025-06-09.icc"
+    [icc_calibrite]="${HOME}/Library/ColorSync/Profiles/AW3225QF_Caribrite_69_120cd_2026-02-09.icc"
     # measured at brightness 83% 120cd 2025-06-09
     #  - factory setting
     #  - dolby vision bright mode
-    [icc_lldv_calibrite]="${HOME}/Library/ColorSync/Profiles/AW3225QF_LLDV_Caribrite_83_120_cd_2025-06-09_2.icc"
-    [icc_default]="${HOME}/Library/ColorSync/Profiles/AW3225QF D65.icc"
+    [icc_lldv_calibrite]="${HOME}/Library/ColorSync/Profiles/AW3225QF_lldv_Caribrite_81_120cd_2026-02-09.icc"
+    # [icc_default]="${HOME}/Library/ColorSync/Profiles/AW3225QF D65.icc"
+    [icc_default]="${HOME}/Library/ColorSync/Profiles/AW3225QF_Caribrite_69_120cd_2026-02-09.icc"
     [icc_lldv]="${HOME}/Library/ColorSync/Profiles/AW3225QF LLDV.icc"
 )
 
@@ -33,8 +34,9 @@ declare -A s3221qs=(
     # measured at brightness 46% 120cd 2025-06-09
     #  - factory setting
     #  - standard mode
-    [icc_calibrite]="${HOME}/Library/ColorSync/Profiles/DELL_S3221QS_Calibrite_46_120cd_2025-06-09.icc"
-    [icc_default]="${HOME}/Library/ColorSync/Profiles/DELL S3221QS D65.icc"
+    [icc_calibrite]="${HOME}/Library/ColorSync/Profiles/DELL_S3221QS_Caribrite_75_120cd_2026-02-09.icc"
+    # [icc_default]="${HOME}/Library/ColorSync/Profiles/DELL S3221QS D65.icc"
+    [icc_default]="${HOME}/Library/ColorSync/Profiles/DELL_S3221QS_Caribrite_75_120cd_2026-02-09.icc"
 )
 
 icc_dci_p3="/System/Library/ColorSync/Profiles/DCI(P3) RGB.icc"
@@ -54,20 +56,14 @@ declare -A aw3225qf_normal_set_0=(
     [hdr]=off
 )
 declare -A aw3225qf_normal_set_1=(
-    [resolution]=2560x1440
     # [refreshRate]=48-240Hz
     [refreshRate]=120Hz
 )
 declare -A aw3225qf_normal_set_2=(
+    [resolution]=2560x1440
     [colorProfileURL]="file://${aw3225qf[icc_default]// /%20}"
     [brightness]=0.61
 )
-# fine-tuned white point to suit macbook
-# declare -A aw3225qf_normal_set_3=(
-#     [redHardwareGain]=0.94
-#     [greenHardwareGain]=1.0
-#     [blueHardwareGain]=0.98
-# )
 
 #---------------------------------------------------
 # s3221qs normal settings
@@ -76,33 +72,28 @@ declare -A s3221qs_normal_set_0=(
     [hdr]=off
 )
 declare -A s3221qs_normal_set_1=(
-    [resolution]=2560x1440
     [refreshRate]=60Hz
 )
 
 # GPU dithering causes flickering
 declare -A s3221qs_normal_set_2=(
+    [resolution]=2560x1440
     [gpuDithering]=off
     [colorProfileURL]="file://${s3221qs[icc_default]// /%20}"
     [brightness]=0.52
 )
-# declare -A s3221qs_normal_set_3=(
-#     [redHardwareGain]=0.90
-#     [greenHardwareGain]=0.86
-#     [blueHardwareGain]=1.0
-# )
 
 #---------------------------------------------------
 # dolby vision 4K settings
 #---------------------------------------------------
 declare -A aw3225qf_dolby_vision_4k_set_0=(
-    [resolution]=1920x1080
     [refreshRate]=60Hz
 )
 declare -A aw3225qf_dolby_vision_4k_set_1=(
     [hdr]=on
 )
 declare -A aw3225qf_dolby_vision_4k_set_2=(
+    [resolution]=1920x1080
     [connectionMode]=bpc:12+range:limited
 )
 declare -A aw3225qf_dolby_vision_4k_set_3=(
@@ -119,13 +110,13 @@ declare -A aw3225qf_dolby_vision_4k_set_3=(
 # dolby vision 5K settings
 #---------------------------------------------------
 declare -A aw3225qf_dolby_vision_5k_set_0=(
-    [resolution]=2560x1440
     [refreshRate]=60Hz
 )
 declare -A aw3225qf_dolby_vision_5k_set_1=(
     [hdr]=on
 )
 declare -A aw3225qf_dolby_vision_5k_set_2=(
+    [resolution]=2560x1440
     [connectionMode]=bpc:12+range:limited
 )
 declare -A aw3225qf_dolby_vision_5k_set_3=(
@@ -326,21 +317,17 @@ apple_tv() {
 
     betterdisplay $disp_var dolby_vision_4k
 
+    open -a "TV"
+
     osascript <<-EOF
 tell application "TV"
   activate
-  set tvWin to null
-  repeat with aWin in windows
-    if name of aWin is "TV" then
-      set tvWin to aWin
-    end if
-  end repeat
- if tvWin is not null then
-   tell tvWin
-     set bounds to $display[bounds_4k]
-     set visible to true
-   end tell
- end if
+  if exists window "TV" then
+    tell window "TV"
+      set minimized to false
+      set bounds to $display[bounds_4k]
+    end tell
+  end if
 end tell
 EOF
 }
